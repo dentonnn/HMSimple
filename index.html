@@ -1,290 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta name="x-poe-datastore-behavior" content="local_only">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#FF6B5A">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Half Marathon Trainer</title>
-
-    <!-- Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Week Sub-20 5K → Sub-40 10K</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
     <style>
-        /* CSS Custom Properties - Runna-Inspired Theme */
         :root {
-            /* Background colors */
-            --color-bg: #F5F7F8;
-            --color-surface: #FFFFFF;
-
-            /* Text colors */
-            --color-text: #1A1A1A;
-            --color-text-secondary: #6B7280;
-            --color-text-muted: #9CA3AF;
-
-            /* Border & dividers */
-            --color-border: #E5E7EB;
-            --color-divider: #F0F0F0;
-
-            /* Accent colors */
-            --color-accent: #FF6B35;
-            --color-success: #06A77D;
-
-            /* Workout type colors (left border) */
-            --run-easy: #4ECDC4;
-            --run-tempo: #FFD93D;
-            --run-intervals: #FF6B6B;
-            --run-long: #6BCB77;
-            --run-recovery: #95E1D3;
-            --run-race: #9B59B6;
-
-            /* Fonts */
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --bg-primary: #fafafa;
+            --bg-secondary: #f0f0f0;
+            --bg-card: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-tertiary: #999999;
+            --border-color: #e0e0e0;
+            --speed-bg: #fef2f2;
+            --speed-border: #fca5a5;
+            --speed-accent: #dc2626;
+            --threshold-bg: #eff6ff;
+            --threshold-border: #93c5fd;
+            --threshold-accent: #2563eb;
+            --easy-bg: #f0fdf4;
+            --easy-border: #86efac;
+            --easy-accent: #16a34a;
+            --trail-bg: #fdf4ff;
+            --trail-border: #d8b4fe;
+            --trail-accent: #9333ea;
+            --race-bg: #fffbeb;
+            --race-border: #fcd34d;
+            --race-accent: #d97706;
+            --rest-bg: #f5f5f5;
+            --rest-border: #d4d4d4;
+            --rest-accent: #737373;
+            --accent: #dc2626;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .dark {
-            --color-bg: #121212;
-            --color-surface: #1E1E1E;
-            --color-text: #FFFFFF;
-            --color-text-secondary: #A0A0A0;
-            --color-text-muted: #707070;
-            --color-border: #2C2C2C;
-            --color-divider: #2C2C2C;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1c1c1c;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --border-color: #333333;
+            --speed-bg: #1a0505;
+            --speed-border: #7f1d1d;
+            --speed-accent: #f87171;
+            --threshold-bg: #050e1a;
+            --threshold-border: #1e3a5f;
+            --threshold-accent: #60a5fa;
+            --easy-bg: #052e16;
+            --easy-border: #166534;
+            --easy-accent: #4ade80;
+            --trail-bg: #1a0525;
+            --trail-border: #581c87;
+            --trail-accent: #c084fc;
+            --race-bg: #1a1505;
+            --race-border: #854d0e;
+            --race-accent: #fbbf24;
+            --rest-bg: #1a1a1a;
+            --rest-border: #404040;
+            --rest-accent: #a3a3a3;
+            --accent: #f87171;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         }
 
         * {
-            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: var(--font-main);
-            background: var(--color-bg);
-            color: var(--color-text);
-            overscroll-behavior: none;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-main);
-            font-weight: 700;
+        .app {
+            max-width: 520px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: var(--bg-primary);
         }
 
-        /* Uppercase labels */
-        .label-uppercase {
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--color-text-secondary);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes checkmark {
-            0% {
-                transform: scale(0) rotate(-45deg);
-            }
-            50% {
-                transform: scale(1.2) rotate(-45deg);
-            }
-            100% {
-                transform: scale(1) rotate(-45deg);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        .animate-slide-in {
-            animation: slideIn 0.3s ease-out forwards;
-        }
-
-        .animate-scale-in {
-            animation: scaleIn 0.3s ease-out forwards;
-        }
-
-        .stagger-1 { animation-delay: 50ms; }
-        .stagger-2 { animation-delay: 100ms; }
-        .stagger-3 { animation-delay: 150ms; }
-        .stagger-4 { animation-delay: 200ms; }
-        .stagger-5 { animation-delay: 250ms; }
-
-        /* Session Cards - Runna Style */
-        .session-card {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .session-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5px;
-            background: var(--workout-color, var(--color-border));
-        }
-
-        .session-card.completed {
-            opacity: 0.85;
-        }
-
-        .session-card:active {
-            transform: scale(0.99);
-        }
-
-        /* Session Type Left Border Colors */
-        .session-card[data-type="intervals"]::before { background: var(--run-intervals); }
-        .session-card[data-type="tempo"]::before { background: var(--run-tempo); }
-        .session-card[data-type="easy"]::before { background: var(--run-easy); }
-        .session-card[data-type="recovery"]::before { background: var(--run-recovery); }
-        .session-card[data-type="shakeout"]::before { background: var(--run-recovery); }
-        .session-card[data-type="long-run"]::before,
-        .session-card[data-type="long run"]::before { background: var(--run-long); }
-        .session-card[data-type="race-day"]::before,
-        .session-card[data-type="race day"]::before,
-        .session-card[data-type="pre-race-shakeout"]::before,
-        .session-card[data-type="pre-race shakeout"]::before { background: var(--run-race); }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            padding: 1rem 0;
-            border-top: 1px solid var(--color-divider);
-        }
-
-        .stat-item {
-            text-align: left;
-        }
-
-        .stat-label {
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: var(--color-text-muted);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-value {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--color-text);
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* Expandable Content */
-        .expandable-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-        }
-
-        .expandable-content.expanded {
-            max-height: 2000px;
-        }
-
-        .chevron {
-            transition: transform 0.3s ease;
-        }
-
-        .chevron.rotated {
-            transform: rotate(180deg);
-        }
-
-        /* Progress Ring */
-        .progress-ring {
-            transform: rotate(-90deg);
-        }
-
-        .progress-ring-circle {
-            transition: stroke-dashoffset 0.5s ease;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--color-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--color-primary);
-            border-radius: 4px;
-        }
-
-        /* Horizontal Week Navigation */
-        .week-tabs-container {
+        /* Header */
+        .header {
             position: sticky;
-            top: 57px;
-            z-index: 30;
-            background: var(--color-bg);
-            border-bottom: 1px solid var(--color-border);
-            margin: 0 -16px;
-            padding: 12px 16px;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 20px 12px;
+        }
+
+        .header-top {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .header-top h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .header-top p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .part-toggle {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .part-btn {
+            flex: 1;
+            padding: 10px 8px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .part-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--speed-bg);
+        }
+
+        .part-btn span {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.7;
+            margin-top: 2px;
         }
 
         .week-tabs {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            padding-bottom: 4px;
+            -ms-overflow-style: none;
+            padding-bottom: 2px;
         }
 
         .week-tabs::-webkit-scrollbar {
@@ -294,1705 +174,1512 @@
         .week-tab {
             flex-shrink: 0;
             padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.875rem;
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-tertiary);
+            font-family: inherit;
+            font-size: 13px;
             font-weight: 600;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            color: var(--color-text-secondary);
-            transition: all 0.2s ease;
+            border: none;
             cursor: pointer;
-            scroll-snap-align: center;
-            white-space: nowrap;
-        }
-
-        .week-tab:active {
-            transform: scale(0.95);
+            transition: all 0.2s;
         }
 
         .week-tab.active {
-            background: #1A1A1A;
-            color: white;
-            border-color: #1A1A1A;
+            background: var(--text-primary);
+            color: var(--bg-primary);
         }
 
-        .week-tab.completed {
-            background: var(--color-success);
-            color: white;
-            border-color: var(--color-success);
+        /* Week Content */
+        .week-view {
+            display: none;
         }
 
-        .week-tab.completed.active {
-            background: #05966D;
-            border-color: #05966D;
+        .week-view.active {
+            display: block;
         }
 
-        /* Week Navigation - Vertical Cards */
-        .week-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .week-banner {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .week-card {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
+        .week-banner h2 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .week-banner .focus {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* Blueprint */
+        .blueprint {
+            margin: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease;
-            position: relative;
+            padding: 14px 16px;
         }
 
-        .week-card:active {
-            transform: scale(0.99);
-        }
-
-        .week-card.week-completed {
-            background: linear-gradient(135deg, rgba(6, 167, 125, 0.05), rgba(6, 167, 125, 0.02));
-            border-color: var(--color-success);
-        }
-
-        .complete-week-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--color-surface);
-            border: 2px solid var(--color-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 10;
-        }
-
-        .complete-week-btn:hover {
-            border-color: var(--color-success);
-            background: rgba(6, 167, 125, 0.1);
-        }
-
-        .complete-week-btn:active {
-            transform: scale(0.9);
-        }
-
-        .complete-week-btn.completed {
-            background: var(--color-success);
-            border-color: var(--color-success);
-        }
-
-        .complete-week-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .week-badge {
-            display: inline-block;
-            background: #1A1A1A;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
+        .blueprint h4 {
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            margin-bottom: 10px;
         }
 
-        .week-header {
+        .blueprint-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: 13px;
+        }
+
+        .blueprint-day {
+            font-weight: 700;
+            color: var(--text-primary);
+            min-width: 60px;
+        }
+
+        .blueprint-desc {
+            color: var(--text-secondary);
+        }
+
+        /* Workout Cards */
+        .workouts {
+            padding: 0 20px 20px;
+        }
+
+        .wo-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            margin-top: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .wo-head {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+            gap: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s;
         }
 
-        .week-date-range {
+        .wo-head:hover {
+            background: var(--bg-secondary);
+        }
+
+        .wo-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .wo-dot.speed {
+            background: var(--speed-accent);
+        }
+
+        .wo-dot.threshold {
+            background: var(--threshold-accent);
+        }
+
+        .wo-dot.easy {
+            background: var(--easy-accent);
+        }
+
+        .wo-dot.trail {
+            background: var(--trail-accent);
+        }
+
+        .wo-dot.race {
+            background: var(--race-accent);
+        }
+
+        .wo-dot.rest {
+            background: var(--rest-accent);
+        }
+
+        .wo-info {
+            flex: 1;
+        }
+
+        .wo-day {
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--color-text-secondary);
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+        }
+
+        .wo-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .wo-chevron {
+            color: var(--text-tertiary);
+            font-size: 16px;
+            transition: transform 0.25s;
+        }
+
+        .wo-card.open .wo-chevron {
+            transform: rotate(180deg);
+        }
+
+        .wo-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out;
+        }
+
+        .wo-card.open .wo-body {
+            max-height: 800px;
+        }
+
+        .wo-inner {
+            padding: 0 18px 18px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .wo-section {
+            margin-top: 14px;
+        }
+
+        .wo-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-tertiary);
             margin-bottom: 6px;
         }
 
-        /* Modal */
-        .modal-backdrop {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
+        .wo-detail-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 4px 12px;
+            font-size: 13px;
         }
 
-        /* Upload Zone */
-        .upload-zone {
-            border: 2px dashed var(--color-border);
-            transition: all 0.3s ease;
-        }
-
-        .upload-zone.drag-over {
-            border-color: var(--color-primary);
-            background: rgba(255, 107, 90, 0.1);
-        }
-
-        /* Comparison Badge */
-        .comparison-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.875rem;
+        .wo-detail-grid dt {
             font-weight: 600;
+            color: var(--text-secondary);
         }
 
-        .comparison-badge.faster {
-            background: rgba(239, 68, 68, 0.1);
-            color: #DC2626;
+        .wo-detail-grid dd {
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
-        .comparison-badge.slower {
-            background: rgba(59, 130, 246, 0.1);
-            color: #2563EB;
+        .wo-note {
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-secondary);
         }
 
-        .comparison-badge.on-target {
-            background: rgba(6, 167, 125, 0.1);
-            color: var(--color-success);
+        .wo-note.speed {
+            background: var(--speed-bg);
+            border-left: 3px solid var(--speed-accent);
         }
 
-        /* Feel Scale */
-        .feel-scale {
+        .wo-note.threshold {
+            background: var(--threshold-bg);
+            border-left: 3px solid var(--threshold-accent);
+        }
+
+        .wo-note.easy {
+            background: var(--easy-bg);
+            border-left: 3px solid var(--easy-accent);
+        }
+
+        .wo-note.trail {
+            background: var(--trail-bg);
+            border-left: 3px solid var(--trail-accent);
+        }
+
+        .wo-note.race {
+            background: var(--race-bg);
+            border-left: 3px solid var(--race-accent);
+        }
+
+        .wo-note.rest {
+            background: var(--rest-bg);
+            border-left: 3px solid var(--rest-accent);
+        }
+
+        .wo-note strong {
+            color: var(--text-primary);
+        }
+
+        .badge-race {
+            display: inline-block;
+            background: var(--race-accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        /* Checkbox */
+        .wo-check {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
             display: flex;
-            gap: 12px;
+            align-items: center;
             justify-content: center;
-        }
-
-        .feel-option {
-            font-size: 2rem;
             cursor: pointer;
-            opacity: 0.3;
-            transition: all 0.2s;
-            user-select: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            position: relative;
         }
 
-        .feel-option:hover,
-        .feel-option.selected {
+        .wo-check:hover {
+            border-color: var(--easy-accent);
+            background: var(--easy-bg);
+        }
+
+        .wo-check.done {
+            border-color: var(--easy-accent);
+            background: var(--easy-accent);
+            animation: checkPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wo-check.done svg {
             opacity: 1;
-            transform: scale(1.2);
+            transform: scale(1);
         }
 
-        /* Bottom Nav */
-        .nav-btn {
-            color: var(--color-text-muted);
+        .wo-check svg {
+            width: 14px;
+            height: 14px;
+            opacity: 0;
+            transform: scale(0.5);
             transition: all 0.2s ease;
         }
 
-        .nav-btn.active {
-            color: var(--color-text);
+        @keyframes checkPop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
-        .nav-btn svg {
-            stroke-width: 2;
+        /* Completed card state */
+        .wo-card.completed .wo-head {
+            opacity: 0.55;
         }
 
-        .nav-btn.active svg {
-            stroke-width: 2.5;
+        .wo-card.completed .wo-title {
+            text-decoration: line-through;
+            text-decoration-color: var(--text-tertiary);
         }
 
-        /* Utility Classes */
-        .bg-accent { background-color: var(--color-accent); }
-        .bg-success { background-color: var(--color-success); }
-        .text-accent { color: var(--color-accent); }
-
-        /* Markdown Content */
-        .markdown-content {
-            line-height: 1.6;
+        .wo-card.completed .wo-check {
+            opacity: 1 !important;
         }
 
-        .markdown-content strong {
-            color: var(--color-primary);
+        /* Week progress bar */
+        .week-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .progress-bar-track {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--easy-accent);
+            border-radius: 3px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+        }
+
+        .progress-text .done-count {
+            color: var(--easy-accent);
+        }
+
+        /* Week tab completion dot */
+        .week-tab .tab-dot {
+            display: block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin: 4px auto 0;
+            background: transparent;
+        }
+
+        .week-tab .tab-dot.partial {
+            background: var(--race-accent);
+        }
+
+        .week-tab .tab-dot.full {
+            background: var(--easy-accent);
+        }
+
+        .week-tab.active .tab-dot.partial {
+            background: var(--race-accent);
+        }
+
+        .week-tab.active .tab-dot.full {
+            background: var(--easy-accent);
+        }
+
+        /* Pace Reference Tab */
+        .pace-view {
+            display: none;
+            padding: 20px;
+        }
+
+        .pace-view.active {
+            display: block;
+        }
+
+        .pace-intro {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .pace-intro h2 {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .pace-intro p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .pace-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .pace-card-bar {
+            height: 4px;
+        }
+
+        .pace-card-bar.clr-red {
+            background: var(--speed-accent);
+        }
+
+        .pace-card-bar.clr-orange {
+            background: var(--race-accent);
+        }
+
+        .pace-card-bar.clr-yellow {
+            background: #ca8a04;
+        }
+
+        .dark .pace-card-bar.clr-yellow {
+            background: #eab308;
+        }
+
+        .pace-card-bar.clr-green {
+            background: var(--easy-accent);
+        }
+
+        .pace-card-bar.clr-blue {
+            background: var(--threshold-accent);
+        }
+
+        .pace-card-body {
+            padding: 16px 18px;
+        }
+
+        .pace-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .pace-card-emoji {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .pace-card-name {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .pace-card-day {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            margin-bottom: 14px;
+            padding-left: 32px;
+        }
+
+        .pace-zones {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .pace-zone {
+            flex: 1;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        .pace-zone-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
+
+        .pace-zone-value {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .pace-zone-value small {
+            display: block;
+            font-size: 10px;
             font-weight: 600;
+            color: var(--text-tertiary);
+            margin-top: 2px;
         }
 
-        .markdown-content ul {
-            list-style: disc;
-            margin-left: 1.5rem;
+        .pace-focus {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+            padding: 10px 12px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
         }
 
-        .markdown-content li {
-            margin: 0.5rem 0;
+        .pace-focus strong {
+            color: var(--text-primary);
+            font-style: normal;
+        }
+
+        @media (max-width: 520px) {
+            .app {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen">
 
-    <!-- App Container -->
-    <div id="app" class="max-w-2xl mx-auto pb-20">
-
-        <!-- Header - Runna Style -->
-        <header class="sticky top-0 z-40 px-4 py-4 shadow-sm" style="background: var(--color-surface); border-bottom: 1px solid var(--color-border);">
-            <div class="flex items-center justify-between max-w-2xl mx-auto">
-                <div class="w-10"></div>
-                <h1 class="text-lg font-bold" style="color: var(--color-text);">Your Plan</h1>
-                <div class="w-10"></div>
+<body>
+    <div class="app">
+        <div class="header">
+            <div class="header-top">
+                <h1>12-Week Race Plan</h1>
+                <p>Sub-20 5K → Sub-40 10K</p>
             </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="px-4 py-6" id="main-content">
-            <!-- Populated by JS -->
-        </main>
-
-        <!-- Bottom Navigation - Runna Style -->
-        <nav class="fixed bottom-0 left-0 right-0 z-50 border-t" style="background: var(--color-surface); border-color: var(--color-border);">
-            <div class="max-w-2xl mx-auto flex">
-                <button class="nav-btn flex-1 py-3 flex flex-col items-center gap-1 active" data-view="plan">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                    </svg>
-                    <span class="text-xs" style="font-weight: 500;">Plan</span>
+            <div class="part-toggle">
+                <button class="part-btn active" onclick="switchPart(1)">
+                    PART 1: Sub-20 5K
+                    <span>Weeks 1–6</span>
                 </button>
-                <button class="nav-btn flex-1 py-3 flex flex-col items-center gap-1" data-view="paces">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                    <span class="text-xs" style="font-weight: 500;">Paces</span>
+                <button class="part-btn" onclick="switchPart(2)">
+                    PART 2: Sub-40 10K
+                    <span>Weeks 7–12</span>
                 </button>
-                <button class="nav-btn flex-1 py-3 flex flex-col items-center gap-1" data-view="progress">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    <span class="text-xs" style="font-weight: 500;">Progress</span>
+                <button class="part-btn" id="paceRefBtn" onclick="switchToPaces()">
+                    📊 PACES
+                    <span>Reference</span>
                 </button>
             </div>
-        </nav>
+            <div class="week-tabs" id="weekTabs"></div>
+        </div>
 
+        <div id="weekContainer"></div>
+        <div id="paceView" class="pace-view"></div>
     </div>
 
-    <!-- Modal Container -->
-    <div id="modal-container"></div>
-
-    <!-- PWA Manifest (inline) -->
-    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkhhbGYgTWFyYXRob24gVHJhaW5lciIsCiAgInNob3J0X25hbWUiOiAiSE0gVHJhaW5lciIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAidGhlbWVfY29sb3IiOiAiI0ZGNkI1QSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzJCMkQ0MiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCclM0UlM0NyZWN0IHdpZHRoPScxMDAnIGhlaWdodD0nMTAwJyBmaWxsPSclMjNGRjZCNUEnLyUzRSUzQ3RleHQgeD0nNTAlMjUnIHk9JzUwJTI1JyBmb250LXNpemU9JzUwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJyUzRSVGMCU5RiU4RiU4MyUzQy90ZXh0JTNFJTNDL3N2ZyUzRSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyUzRSUzQ3JlY3Qgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIGZpbGw9JyUyM0ZGNkI1QScvJTNFJTNDdGV4dCB4PSc1MCUyNScgeT0nNTAlMjUnIGZvbnQtc2l6ZT0nNTAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGRvbWluYW50LWJhc2VsaW5lPSdtaWRkbGUnJTNFJUYwJTlGJThGJTgzJTNDL3RleHQlM0UlM0Mvc3ZnJTNFIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
-
     <script>
-        // ========================================
-        // TRAINING PLAN DATA
-        // ========================================
+        // Dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            document.documentElement.classList.toggle('dark', e.matches);
+        });
 
-        const TRAINING_PLAN = {
-            startDate: '2024-11-04', // Week 1 start
-            raceDate: '2026-01-18',
-            currentWeek: 4,
-            weeks: [
-                {
-                    number: 1,
-                    dates: 'Nov 4-10, 2024',
-                    phase: 'Base Building',
-                    totalKm: 30,
-                    status: 'completed',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Intervals',
-                            distance: '8K',
-                            icon: '🏃',
-                            prescribed: {
-                                structure: 'Warmup: 2K @ 6:30/km\nMain: 4x800m @ 4:30/km\nRecovery: 2 min jog\nCooldown: 2K @ 6:30/km',
-                                hrZone: '160-168 bpm',
-                                notes: 'First interval session - focus on form and completing all reps.'
-                            }
-                        },
-                        {
-                            day: 'Thursday',
-                            type: 'Easy',
-                            distance: '6K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '6:20-6:30/km',
-                                hrZone: '<155 bpm',
-                                notes: 'Pure recovery run. Should feel conversational.'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '12K',
-                            icon: '🏔️',
-                            prescribed: {
-                                structure: '10K @ 6:15/km\nLast 2K @ 6:00/km',
-                                hrZone: '155-162 bpm',
-                                notes: 'Building aerobic base. Start easy and finish strong.'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 2,
-                    dates: 'Nov 11-17, 2024',
-                    phase: 'Base Building',
-                    totalKm: 33,
-                    status: 'completed',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Intervals',
-                            distance: '9K',
-                            icon: '🏃',
-                            prescribed: {
-                                structure: 'Warmup: 2K @ 6:30/km\nMain: 5x800m @ 4:25/km\nRecovery: 2 min jog\nCooldown: 2K @ 6:30/km',
-                                hrZone: '162-170 bpm',
-                                notes: 'Progressing from Week 1. One more rep, slightly faster pace.'
-                            }
-                        },
-                        {
-                            day: 'Thursday',
-                            type: 'Easy',
-                            distance: '6K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '6:20-6:30/km',
-                                hrZone: '<155 bpm',
-                                notes: 'Active recovery between hard sessions.'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '13K',
-                            icon: '🏔️',
-                            prescribed: {
-                                structure: '10K @ 6:10/km\nLast 3K @ 5:55/km',
-                                hrZone: '156-163 bpm',
-                                notes: 'Slightly longer than Week 1. Practice negative split pacing.'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 3,
-                    dates: 'Nov 25 - Dec 1, 2024',
-                    phase: 'Base Building',
-                    totalKm: 36,
-                    status: 'completed',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Intervals',
-                            distance: '10K',
-                            icon: '🏃',
-                            prescribed: {
-                                structure: 'Warmup: 2K @ 6:30/km\nMain: 6x800m @ 4:20/km (3:28 per 800m)\nRecovery: 2 min jog between reps\nCooldown: 2K @ 6:30/km',
-                                hrZone: '165-172 bpm (Aerobic Power zone)',
-                                notes: '**Week 3 Intervals** - Building aerobic power\n\n• Target HR: 165-172 bpm (Aerobic Power zone)\n• Should feel "comfortably hard" - sustainable for all 6 reps\n• Focus on completing with good form rather than maximum speed\n• Recovery jogs should bring HR below 140 bpm before next rep\n• **Key Adjustment:** Adjusted from 4:10/km to 4:20/km to stay in Aerobic Power zone for better development'
-                            }
-                        },
-                        {
-                            day: 'Thursday',
-                            type: 'Easy',
-                            distance: '6K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '6:20-6:30/km',
-                                hrZone: '<155 bpm',
-                                notes: 'Pure recovery run. Should feel conversational. Purpose: active recovery between interval session and long run.'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '14K',
-                            icon: '🏔️',
-                            prescribed: {
-                                structure: 'First 10K @ 6:10/km\nLast 4K @ 5:55/km',
-                                hrZone: 'Start 157, finish 164',
-                                notes: '**Week 3 Long Run** - Aerobic base building\n\n• **CRITICAL:** Must stick to prescribed paces - do NOT start faster\n• Start at 6:15-6:20/km and actively hold yourself back\n• Practice higher cadence (165+) at slower early pace\n• Progressive pace structure teaches pacing discipline'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 4,
-                    dates: 'Dec 2-8, 2025',
-                    phase: 'Speed Development',
-                    totalKm: 40,
-                    status: 'active',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Intervals',
-                            distance: '11K',
-                            icon: '🏃',
-                            keyWorkout: true,
-                            prescribed: {
-                                structure: 'Warmup: 2K @ 6:30/km\nMain: 8x800m @ 4:15/km (3:24 per 800m)\nRecovery: 2 min jog (extend to 2:30 if HR stays >140)\nCooldown: 2K @ 6:30/km',
-                                hrZone: '168-174 bpm',
-                                notes: '**Key Workout** - Progressive overload week\n\n• More reps than Week 3, slightly faster pace = progressive overload\n• **Success criteria:** Complete all 8 reps without form breakdown on last 2\n• Adjusted from 4:05/km to 4:15/km to stay in Aerobic Power zone\n• **Pre-workout:** Check quad/knee tightness - postpone to Wednesday if still tight'
-                            }
-                        },
-                        {
-                            day: 'Thursday',
-                            type: 'Easy',
-                            distance: '7K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '6:20-6:30/km',
-                                hrZone: '<155 bpm',
-                                notes: 'Recovery between intervals and long run. Should feel easy after Tuesday\'s hard session.'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '16K',
-                            icon: '🏔️',
-                            prescribed: {
-                                structure: '10K @ 6:05/km\n4K @ 5:50/km\nLast 2K @ 5:40/km (goal HM pace!)',
-                                hrZone: 'Progressive 158 → 164 → 168',
-                                notes: '**First exposure to goal race pace!**\n\n• Progressive effort structure teaches body to run on tired legs\n• **CRITICAL:** Must stick to prescribed paces - do NOT start faster\n• Start at 6:15-6:20/km and actively hold yourself back\n• Practice higher cadence (165+) at slower early pace\n• Last 2K at goal HM pace - feel what sub-2:00 feels like'
-                            }
-                        },
-                        {
-                            day: 'Monday',
-                            type: 'Recovery',
-                            distance: '6K',
-                            icon: '🚶',
-                            optional: true,
-                            prescribed: {
-                                pace: '6:30-6:40/km',
-                                hrZone: '<150 bpm',
-                                notes: 'Very light recovery. Skip if feeling fatigued from weekend.'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 5,
-                    dates: 'Dec 9-15, 2025',
-                    phase: 'Recovery Week',
-                    totalKm: 30,
-                    status: 'upcoming',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Easy',
-                            distance: '6K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:30-5:45/km',
-                                hrZone: '<155 bpm',
-                                notes: '**Recovery Week Easy Run**\n\n• Body is adapting from previous hard weeks\n• Easy effort is key - don\'t push\n• Focus on form and relaxation\n• Should feel conversational'
-                            }
-                        },
-                        {
-                            day: 'Thursday',
-                            type: 'Tempo',
-                            distance: '8K',
-                            icon: '🏃',
-                            prescribed: {
-                                structure: 'Warmup: 2K easy\nMain: 4K @ 5:00/km (HM pace +15-20 sec)\nCooldown: 2K easy',
-                                hrZone: '165-170 bpm',
-                                notes: '**Recovery Week Tempo**\n\n• Maintain aerobic fitness during recovery\n• Tempo should feel controlled, not hard\n• 5:00/km is comfortably faster than old goal pace\n• Tempo pace is ~15-20 sec slower than new goal pace'
-                            }
-                        },
-                        {
-                            day: 'Saturday',
-                            type: 'Recovery',
-                            distance: '5K',
-                            icon: '🚶',
-                            optional: true,
-                            prescribed: {
-                                pace: '5:45-6:00/km',
-                                hrZone: '<150 bpm',
-                                notes: '**Optional Recovery Run**\n\n• Very light shakeout\n• Skip if legs feel heavy\n• Purpose is blood flow, not training stimulus'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '12K',
-                            icon: '🏔️',
-                            optional: true,
-                            prescribed: {
-                                pace: '5:20-5:30/km',
-                                hrZone: '155-162 bpm',
-                                notes: '**Recovery Week Long Run (Optional)**\n\n• Reduced distance for recovery week\n• Steady effort, no surges\n• Keep it comfortable throughout\n• Can shorten or skip if feeling fatigued'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 6,
-                    dates: 'Dec 16-22, 2025',
-                    phase: 'Build Week',
-                    totalKm: 42,
-                    status: 'upcoming',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Easy',
-                            distance: '7K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:30-5:45/km',
-                                hrZone: '<155 bpm',
-                                notes: '**Build Week Easy Run**\n\n• Easy effort to start the week\n• Legs should feel fresh after recovery week\n• Focus on smooth, relaxed running'
-                            }
-                        },
-                        {
-                            day: 'Wednesday',
-                            type: 'Intervals',
-                            distance: '10K',
-                            icon: '🏃',
-                            prescribed: {
-                                structure: 'Warmup: 2K easy\nMain: 8K progressive\n(Start @ 5:20/km → finish @ 4:50/km)\nCooldown: 1K easy',
-                                hrZone: '160-172 bpm',
-                                notes: '**Progressive Run**\n\n• Negative split structure\n• Build into race pace territory\n• Final 2K should approach goal race pace (4:44/km)\n• Great for teaching body to finish strong'
-                            }
-                        },
-                        {
-                            day: 'Friday',
-                            type: 'Recovery',
-                            distance: '5K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:45-6:00/km',
-                                hrZone: '<150 bpm',
-                                notes: '**Recovery Run**\n\n• Easy shakeout before long run\n• Just loosening up legs\n• Should feel effortless'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '18K',
-                            icon: '🏔️',
-                            keyWorkout: true,
-                            prescribed: {
-                                structure: 'First 12K @ 5:20/km\nLast 6K @ 4:50-4:55/km (race pace finish)',
-                                hrZone: '158-172 bpm',
-                                notes: '**KEY WORKOUT** 🔑 Long Run with Race Pace Finish\n\n• **Last 6K at race pace!** This is where sub-1:40 fitness is built\n• First 12K is controlled setup for the real work\n• Practice running race pace on tired legs\n• Mental preparation for final 6K of actual race\n• Hydrate and fuel as you would on race day'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 7,
-                    dates: 'Dec 23-29, 2025',
-                    phase: 'Peak Week',
-                    totalKm: 45,
-                    status: 'upcoming',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Easy',
-                            distance: '6K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:30-5:45/km',
-                                hrZone: '<155 bpm',
-                                notes: '**Peak Week Easy Run**\n\n• Easy recovery from long run\n• Keep it relaxed\n• Holiday period - enjoy the run'
-                            }
-                        },
-                        {
-                            day: 'Wednesday',
-                            type: 'Intervals',
-                            distance: '10K',
-                            icon: '🏃',
-                            keyWorkout: true,
-                            prescribed: {
-                                structure: 'Warmup: 2K easy\nMain: 4x1600m @ 4:30/km\nRecovery: 90 sec jog\nCooldown: 2K easy',
-                                hrZone: '172-178 bpm',
-                                notes: '**KEY WORKOUT** 🔑 Threshold Intervals\n\n• 4:30/km is FASTER than race pace - building speed reserve\n• 90 sec recovery keeps intensity high\n• Should feel hard but controlled\n• Peak fitness session - give it everything\n• If you complete this strong, sub-1:40 is very achievable'
-                            }
-                        },
-                        {
-                            day: 'Friday',
-                            type: 'Recovery',
-                            distance: '5K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:45-6:00/km',
-                                hrZone: '<150 bpm',
-                                notes: '**Recovery Run**\n\n• Very easy shakeout\n• Recovery before biggest long run\n• Christmas period - be flexible'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '20K',
-                            icon: '🏔️🏔️',
-                            keyWorkout: true,
-                            prescribed: {
-                                structure: 'First 12K @ 5:15/km\nLast 8K @ 4:44/km (GOAL RACE PACE!)',
-                                hrZone: '160-175 bpm',
-                                notes: '**BIGGEST RUN** 🏔️🏔️ Long Run with 8K at Race Pace\n\n• **Last 8K at GOAL PACE (4:44/km)** - This is THE confidence builder\n• 95% of race distance - maximum long run of plan\n• Final 8K simulates last third of race on tired legs\n• If you can hold 4:44/km here, you CAN run sub-1:40\n• Practice race nutrition strategy\n• This is your dress rehearsal'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 8,
-                    dates: 'Dec 30 - Jan 5, 2026',
-                    phase: 'Early Taper',
-                    totalKm: 35,
-                    status: 'upcoming',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Easy',
-                            distance: '6K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:30-5:45/km',
-                                hrZone: '<155 bpm',
-                                notes: '**Taper Week Easy Run**\n\n• Recovery from peak week\'s 20K\n• Legs may feel tired - that\'s normal\n• Easy effort, let body recover'
-                            }
-                        },
-                        {
-                            day: 'Wednesday',
-                            type: 'Tempo',
-                            distance: '14K',
-                            icon: '🎯',
-                            keyWorkout: true,
-                            prescribed: {
-                                structure: 'Warmup: 1K easy\nMain: 12K @ 4:44/km (GOAL RACE PACE!)\nCooldown: 1K easy',
-                                hrZone: '168-174 bpm',
-                                notes: '**MONEY WORKOUT** 🎯 Race Pace Test\n\n• **12K at goal race pace (4:44/km)** - The ultimate confidence test\n• This is 60% of race distance at race pace\n• If this feels sustainable, sub-1:40 is CONFIRMED\n• Focus on rhythm, breathing, form\n• Visualize race day execution\n• Most important workout of entire plan!'
-                            }
-                        },
-                        {
-                            day: 'Friday',
-                            type: 'Recovery',
-                            distance: '5K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:45-6:00/km',
-                                hrZone: '<150 bpm',
-                                notes: '**Recovery Run**\n\n• Very easy shakeout\n• Legs should start feeling fresher\n• Taper is working'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'Long Run',
-                            distance: '14K',
-                            icon: '🏔️',
-                            prescribed: {
-                                pace: '5:15-5:25/km (easy)',
-                                hrZone: '155-162 bpm',
-                                notes: '**Easy Long Run**\n\n• Reduced distance for taper\n• NO race pace work - just easy running\n• Purpose is maintaining aerobic fitness\n• Should feel comfortable throughout\n• Keep legs fresh for race week'
-                            }
-                        }
-                    ]
-                },
-                {
-                    number: 9,
-                    dates: 'Jan 6-18, 2026',
-                    phase: 'Race Week Taper',
-                    totalKm: 20,
-                    status: 'upcoming',
-                    sessions: [
-                        {
-                            day: 'Tuesday',
-                            type: 'Intervals',
-                            distance: '8K',
-                            icon: '🏃',
-                            prescribed: {
-                                structure: 'Warmup: 2K easy\nMain: 4x800m @ 4:30/km\nRecovery: 2 min jog\nCooldown: 2K easy',
-                                hrZone: '165-172 bpm',
-                                notes: '**Sharpener Workout**\n\n• Short, sharp intervals to keep speed\n• Faster than race pace but low volume\n• Should feel crisp and quick\n• Last quality session before race\n• Trust your fitness is there'
-                            }
-                        },
-                        {
-                            day: 'Thursday',
-                            type: 'Easy',
-                            distance: '5K',
-                            icon: '🚶',
-                            prescribed: {
-                                pace: '5:30-5:45/km',
-                                hrZone: '<150 bpm',
-                                notes: '**Easy Run**\n\n• Very easy effort\n• Just keeping legs moving\n• You should feel fresh and ready'
-                            }
-                        },
-                        {
-                            day: 'Friday',
-                            type: 'Easy',
-                            distance: '4K',
-                            icon: '🚶',
-                            prescribed: {
-                                structure: '3K easy + 2x100m strides',
-                                hrZone: '<145 bpm',
-                                notes: '**Pre-Race Shakeout**\n\n• Very short, very easy\n• 2 strides at race pace to remind legs\n• Don\'t overdo it\n• Hydrate well today'
-                            }
-                        },
-                        {
-                            day: 'Saturday',
-                            type: 'Recovery',
-                            distance: '3K',
-                            icon: '🚶',
-                            optional: true,
-                            prescribed: {
-                                pace: '5:45-6:00/km',
-                                hrZone: '<140 bpm',
-                                notes: '**Final Shakeout (Optional)**\n\n• Very light - just 10-15 minutes\n• Some runners prefer complete rest\n• If you run, keep it VERY easy\n• Focus on race prep and visualization'
-                            }
-                        },
-                        {
-                            day: 'Sunday',
-                            type: 'RACE DAY',
-                            distance: '21.1K',
-                            icon: '🏆',
-                            keyWorkout: true,
-                            prescribed: {
-                                structure: 'GOAL: Sub-1:40 (4:44/km average)\n\nPACING STRATEGY:\n• 0-5K: 4:48-4:50/km (controlled start)\n• 5-10K: 4:44/km (settle into rhythm)\n• 10-15K: 4:44/km (maintain)\n• 15-18K: 4:42/km (begin push)\n• 18-21.1K: 4:40/km or faster (empty the tank)',
-                                hrZone: '172-182 bpm',
-                                notes: '**RACE DAY - SUB-1:40 HALF MARATHON** 🏆\n\n**Pre-Race (3 hours before):**\n• Eat familiar breakfast (tested in training)\n• Coffee if that\'s your routine\n• Sip water, don\'t chug\n• Arrive 45 min early for warmup\n\n**Warmup (30 min before start):**\n• 10 min easy jog\n• 5x100m strides building to race pace\n• Dynamic stretches\n• Use bathroom\n\n**Race Execution:**\n• Start conservative - first 5K at 4:48-4:50/km\n• Don\'t get caught up in early pace excitement\n• Gel at 10K (practice this in training!)\n• Water every aid station, just sips\n• Check in with form: relaxed shoulders, quick cadence (180+)\n• At 15K: time to work - this is where training pays off\n• At 18K: dig deep - you trained for this\n• Final 3K: give everything you have left\n\n**Target splits:**\n• 5K: 23:50-24:00\n• 10K: 47:20-47:30\n• 15K: 71:00\n• Finish: Under 1:40:00\n\n**Trust your training. You\'ve done the work. Execute the plan. SUB-1:40 IS YOURS!** 💪🔥'
-                            }
-                        }
-                    ]
-                }
-            ]
-        };
+        // Completion state (in-memory with cookie fallback)
+        var completed = {};
 
-        // ========================================
-        // STATE MANAGEMENT
-        // ========================================
-
-        let state = {
-            currentWeek: TRAINING_PLAN.currentWeek,
-            sessionResults: {}, // { "week-day": { screenshots, actualPace, actualHR, feel, notes, completed } }
-            completedWeeks: {}, // { weekNumber: true/false }
-            view: 'plan'
-        };
-
-        // ========================================
-        // LOCALSTORAGE SETUP
-        // ========================================
-
-        const STORAGE_KEY = 'HMTrainerData';
-
-        function loadFromStorage() {
+        function saveState() {
             try {
-                // eslint-disable-next-line no-restricted-globals
-                const stored = localStorage.getItem(STORAGE_KEY);
-                if (stored) {
-                    const data = JSON.parse(stored);
-                    state.sessionResults = data.sessionResults || {};
-                    state.currentWeek = data.currentWeek || TRAINING_PLAN.currentWeek;
-                    state.completedWeeks = data.completedWeeks || {};
-                    console.log('Loaded data from localStorage');
-                }
-            } catch (error) {
-                console.error('Error loading from localStorage:', error);
-            }
+                document.cookie = 'tp=' + btoa(JSON.stringify(completed)) + ';path=/;max-age=31536000;SameSite=Lax';
+            } catch (e) { /* no-op */ }
         }
 
-        function saveToStorage() {
+        function loadState() {
             try {
-                const data = {
-                    sessionResults: state.sessionResults,
-                    currentWeek: state.currentWeek,
-                    completedWeeks: state.completedWeeks,
-                    lastUpdated: Date.now()
-                };
-                // eslint-disable-next-line no-restricted-globals
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-                console.log('Saved data to localStorage');
-            } catch (error) {
-                console.error('Error saving to localStorage:', error);
+                var match = document.cookie.match(/(?:^|; )tp=([^;]*)/);
+                if (match) {
+                    completed = JSON.parse(atob(match[1]));
+                }
+            } catch (e) {
+                completed = {};
             }
         }
 
-        function saveSessionResult(weekNum, day, data) {
-            const id = `${weekNum}-${day}`;
-            const sessionData = { id, ...data, timestamp: Date.now() };
-            state.sessionResults[id] = sessionData;
-            saveToStorage();
+        function getKey(week, idx) {
+            return week + '-' + idx;
         }
 
-        function saveScreenshot(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    // Return the base64 data URL directly
-                    resolve({
-                        data: e.target.result,
-                        name: file.name,
-                        timestamp: Date.now()
-                    });
-                };
-                reader.readAsDataURL(file);
-            });
+        function isCompleted(week, idx) {
+            return !!completed[getKey(week, idx)];
         }
 
-        function getScreenshot(screenshotData) {
-            // Screenshots are now stored directly in session data
-            return screenshotData;
-        }
-
-        // ========================================
-        // DARK MODE DETECTION
-        // ========================================
-
-        function initDarkMode() {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.classList.add('dark');
+        function toggleComplete(week, idx, evt) {
+            evt.stopPropagation();
+            var key = getKey(week, idx);
+            if (completed[key]) {
+                delete completed[key];
+            } else {
+                completed[key] = 1;
             }
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-                if (event.matches) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
+            saveState();
+
+            // Update card visual
+            var card = evt.currentTarget.closest('.wo-card');
+            var check = evt.currentTarget;
+            if (completed[key]) {
+                card.classList.add('completed');
+                check.classList.add('done');
+            } else {
+                card.classList.remove('completed');
+                check.classList.remove('done');
+            }
+
+            // Update progress bar + tab dots
+            updateWeekProgress(week);
+            updateTabDots();
+        }
+
+        function getWeekCompletion(week) {
+            var total = plan[week].workouts.length;
+            var done = 0;
+            for (var i = 0; i < total; i++) {
+                if (isCompleted(week, i)) done++;
+            }
+            return { done: done, total: total };
+        }
+
+        function updateWeekProgress(week) {
+            var bar = document.getElementById('progress-fill-' + week);
+            var text = document.getElementById('progress-text-' + week);
+            if (!bar || !text) return;
+            var c = getWeekCompletion(week);
+            var pct = Math.round((c.done / c.total) * 100);
+            bar.style.width = pct + '%';
+            text.innerHTML = '<span class="done-count">' + c.done + '</span> / ' + c.total + ' done';
+        }
+
+        function updateTabDots() {
+            document.querySelectorAll('.week-tab').forEach(function (tab) {
+                var w = parseInt(tab.getAttribute('data-week'), 10);
+                if (!w) return;
+                var dot = tab.querySelector('.tab-dot');
+                if (!dot) return;
+                var c = getWeekCompletion(w);
+                dot.className = 'tab-dot';
+                if (c.done === c.total) {
+                    dot.classList.add('full');
+                } else if (c.done > 0) {
+                    dot.classList.add('partial');
                 }
             });
         }
 
-        // ========================================
-        // UI RENDERING - RUNNA STYLE
-        // ========================================
+        loadState();
 
-        function renderPlanView() {
-            const mainContent = document.getElementById('main-content');
-
-            // Build week tabs HTML
-            const weekTabsHTML = TRAINING_PLAN.weeks.map((week, index) => {
-                const isCompleted = state.completedWeeks[week.number];
-                return `
-                    <button class="week-tab ${index === 0 ? 'active' : ''} ${isCompleted ? 'completed' : ''}" data-week="${week.number}" onclick="scrollToWeek(${week.number})">
-                        Week ${week.number} ${isCompleted ? '✓' : ''}
-                    </button>
-                `;
-            }).join('');
-
-            // Build weeks HTML
-            const weeksHTML = TRAINING_PLAN.weeks.map((week, index) => {
-                const completedCount = week.sessions.filter(session => {
-                    const id = `${week.number}-${session.day}`;
-                    return state.sessionResults[id]?.completed;
-                }).length;
-                const totalSessions = week.sessions.length;
-                const progressPercent = Math.round((completedCount / totalSessions) * 100);
-                const isWeekCompleted = state.completedWeeks[week.number];
-
-                return `
-                    <div class="week-card animate-fade-in-up ${isWeekCompleted ? 'week-completed' : ''}" id="week-${week.number}" data-week-number="${week.number}" style="animation-delay: ${index * 50}ms;">
-                        <!-- Complete Week Button -->
-                        <button class="complete-week-btn ${isWeekCompleted ? 'completed' : ''}" onclick="toggleWeekComplete(${week.number})" title="${isWeekCompleted ? 'Mark week as incomplete' : 'Mark week as complete'}">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: ${isWeekCompleted ? 'white' : 'var(--color-text-secondary)'};">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                            </svg>
-                        </button>
-
-                        <div class="week-date-range">${week.dates.toUpperCase()}</div>
-                        <div class="week-header">
-                            <div class="flex items-center gap-3">
-                                <span class="week-badge">WEEK ${week.number}</span>
-                                <span class="text-sm" style="color: var(--color-text-secondary);">${week.phase}</span>
-                            </div>
-                            <span class="text-sm font-semibold" style="color: var(--color-text-secondary);">${week.totalKm}K</span>
-                        </div>
-                        ${completedCount > 0 ? `
-                            <div class="mt-3 flex items-center gap-2">
-                                <div class="flex-1 h-1 rounded-full" style="background: var(--color-border);">
-                                    <div class="h-full rounded-full bg-success transition-all" style="width: ${progressPercent}%"></div>
-                                </div>
-                                <span class="text-xs font-semibold" style="color: var(--color-text-secondary);">${completedCount}/${totalSessions}</span>
-                            </div>
-                        ` : ''}
-                        <div class="mt-4 space-y-2">
-                            ${week.sessions.map(session => renderSessionCard(week.number, session)).join('')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            mainContent.innerHTML = `
-                <div class="space-y-4">
-                    <div class="mb-2">
-                        <h2 class="text-sm font-semibold" style="color: var(--color-text-secondary);">Sub-1:40 Half Marathon • Jan 18, 2026</h2>
-                    </div>
-
-                    <!-- Horizontal Week Tabs -->
-                    <div class="week-tabs-container">
-                        <div class="week-tabs" id="week-tabs">
-                            ${weekTabsHTML}
-                        </div>
-                    </div>
-
-                    ${weeksHTML}
-                </div>
-            `;
-
-            // Attach event listeners after rendering
-            attachSessionEventListeners();
-            setupScrollSpy();
-        }
-
-        function renderSessionCard(weekNum, session) {
-            const sessionId = `${weekNum}-${session.day}`;
-            const result = state.sessionResults[sessionId];
-            const isCompleted = result?.completed;
-            const sessionType = session.type.toLowerCase().replace(/ /g, '-');
-
-            return `
-                <div class="session-card ${isCompleted ? 'completed' : ''} p-4" data-session="${sessionId}" data-type="${sessionType}">
-                        <div class="flex items-start justify-between cursor-pointer session-header">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="text-2xl">${session.icon}</span>
-                                    <h3 class="text-lg font-bold uppercase tracking-wide" style="color: var(--color-text);">
-                                        ${session.day}${session.optional ? ' (Optional)' : ''}
-                                    </h3>
-                                    ${session.keyWorkout ? '<span class="text-xs px-2 py-1 rounded-full bg-accent text-white font-bold">KEY 🔑</span>' : ''}
-                                </div>
-                                <div class="flex items-center gap-3 text-sm" style="color: var(--color-text-secondary);">
-                                    <span class="font-mono font-semibold">${session.distance}</span>
-                                    <span>•</span>
-                                    <span class="session-type-badge session-type-${session.type.toLowerCase().replace(/ /g, '-')}">${session.type}</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                ${isCompleted ? `
-                                    <div class="w-8 h-8 rounded-full bg-success flex items-center justify-center">
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                                        </svg>
-                                    </div>
-                                ` : ''}
-                                <svg class="w-6 h-6 chevron" style="color: var(--color-text-secondary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div class="expandable-content mt-4">
-                            <div class="space-y-4">
-                                <!-- Prescribed Workout -->
-                                <div class="p-4 rounded-lg" style="background: var(--color-bg);">
-                                    <h4 class="text-sm font-bold uppercase tracking-wide mb-3 text-primary">📋 Prescribed Workout</h4>
-                                    ${session.prescribed.structure ? `
-                                        <div class="mb-3">
-                                            <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Structure</div>
-                                            <pre class="font-mono text-sm whitespace-pre-wrap" style="color: var(--color-text);">${session.prescribed.structure}</pre>
-                                        </div>
-                                    ` : ''}
-                                    ${session.prescribed.pace ? `
-                                        <div class="mb-3">
-                                            <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Pace</div>
-                                            <div class="font-mono font-semibold text-lg text-primary">${session.prescribed.pace}</div>
-                                        </div>
-                                    ` : ''}
-                                    <div>
-                                        <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Heart Rate Zone</div>
-                                        <div class="font-mono font-semibold text-lg text-secondary">${session.prescribed.hrZone}</div>
-                                    </div>
-                                </div>
-
-                                <!-- Training Notes -->
-                                ${session.prescribed.notes ? `
-                                    <div class="p-4 rounded-lg" style="background: var(--color-bg); border-left: 4px solid var(--color-accent);">
-                                        <h4 class="text-sm font-bold uppercase tracking-wide mb-3" style="color: var(--color-accent);">💡 Training Notes & Tips</h4>
-                                        <div class="markdown-content text-sm" style="color: var(--color-text);">
-                                            ${typeof marked !== 'undefined' ? marked.parse(session.prescribed.notes) : session.prescribed.notes.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
-                                        </div>
-                                    </div>
-                                ` : ''}
-
-                                <!-- Results Section -->
-                                ${isCompleted ? `
-                                    <div class="p-4 rounded-lg" style="background: rgba(6, 167, 125, 0.1); border: 2px solid var(--color-success);">
-                                        <h4 class="text-sm font-bold uppercase tracking-wide mb-3 text-success">✅ Session Completed</h4>
-
-                                        ${result.screenshots && result.screenshots.length > 0 ? `
-                                            <div class="mb-4">
-                                                <div class="text-xs uppercase tracking-wide mb-2" style="color: var(--color-text-secondary);">Screenshots</div>
-                                                <div class="grid grid-cols-2 gap-2">
-                                                    ${result.screenshots.map(screenshot => `
-                                                        <img src="${screenshot.data}" class="screenshot-thumb rounded-lg shadow-md cursor-pointer" alt="Workout screenshot" onclick="openImageLightbox('${screenshot.data}')">
-                                                    `).join('')}
-                                                </div>
-                                            </div>
-                                        ` : ''}
-
-                                        ${result.actualPace || result.actualHR ? `
-                                            <div class="grid grid-cols-2 gap-4 mb-3">
-                                                ${result.actualPace ? `
-                                                    <div>
-                                                        <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Actual Pace</div>
-                                                        <div class="font-mono font-semibold text-lg" style="color: var(--color-text);">${result.actualPace}</div>
-                                                    </div>
-                                                ` : ''}
-                                                ${result.actualHR ? `
-                                                    <div>
-                                                        <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Avg HR</div>
-                                                        <div class="font-mono font-semibold text-lg" style="color: var(--color-text);">${result.actualHR} bpm</div>
-                                                    </div>
-                                                ` : ''}
-                                            </div>
-                                        ` : ''}
-
-                                        ${result.feel ? `
-                                            <div class="mb-3">
-                                                <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">How It Felt</div>
-                                                <div class="text-2xl">${['😫', '😐', '😊', '😄', '🔥'][result.feel - 1]}</div>
-                                            </div>
-                                        ` : ''}
-
-                                        ${result.notes ? `
-                                            <div>
-                                                <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Your Notes</div>
-                                                <div class="text-sm italic" style="color: var(--color-text);">"${result.notes}"</div>
-                                            </div>
-                                        ` : ''}
-
-                                        <button class="mt-4 w-full py-2 px-4 rounded-lg text-sm font-semibold border-2 transition-all"
-                                                style="border-color: var(--color-success); color: var(--color-success);"
-                                                onclick="editSessionResult('${sessionId}')">
-                                            Edit Result
-                                        </button>
-                                    </div>
-                                ` : `
-                                    <button class="w-full py-3 px-4 rounded-lg font-bold transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2"
-                                            style="background: var(--color-accent); color: white;"
-                                            onclick="openLogSessionModal('${sessionId}')">
-                                        <span>📝</span>
-                                        <span>Log This Session</span>
-                                    </button>
-                                `}
-                            </div>
-                        </div>
-                    </div>
-                `;
-        }
-
-        // Add expand/collapse event listeners after render
-        function attachSessionEventListeners() {
-            document.querySelectorAll('.session-header').forEach(header => {
-                header.addEventListener('click', () => {
-                    const card = header.closest('.session-card');
-                    const content = card.querySelector('.expandable-content');
-                    const chevron = card.querySelector('.chevron');
-
-                    content.classList.toggle('expanded');
-                    chevron.classList.toggle('rotated');
-
-                    // Vibrate on mobile
-                    if (navigator.vibrate) {
-                        navigator.vibrate(10);
+        const plan = {
+            1: {
+                title: "Establishing the Foundation",
+                focus: "Getting comfortable with the paces without failing.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "VO2 Max / Speed",
+                        summary: "10 × 400m @ 3:55/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "10 × 400m",
+                        pace: "3:55/km",
+                        rest: "60 sec standing/walking between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "4 × 1.5km @ 4:15–4:20/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "4 × 1.5km",
+                        pace: "4:15–4:20/km",
+                        rest: "90 sec easy jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "35 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "35 min continuous running",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: "Forget the watch, focus on active recovery."
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "90 min trail • HR < 150",
+                        warmup: null,
+                        workout: "90 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: "Power hike the steep hills to keep heart rate in check."
                     }
-                });
-            });
-        }
-
-        // Toggle week complete status
-        window.toggleWeekComplete = function(weekNumber) {
-            const currentStatus = state.completedWeeks[weekNumber];
-            state.completedWeeks[weekNumber] = !currentStatus;
-
-            saveToStorage();
-            renderPlanView();
-
-            // Vibrate on mobile
-            if (navigator.vibrate) {
-                navigator.vibrate(currentStatus ? 10 : [50, 100, 50]);
+                ]
+            },
+            2: {
+                title: "Extending the Intervals",
+                focus: "Holding the speed for slightly longer durations.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "VO2 Max / Speed",
+                        summary: "6 × 600m @ 3:55/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "6 × 600m",
+                        pace: "3:55/km",
+                        rest: "75 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "3 × 2km @ 4:15/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "3 × 2km",
+                        pace: "4:15/km",
+                        rest: "90 sec easy jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "Slightly slower pace than Week 1 to allow you to finish all 3 reps strong."
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run + Strides",
+                        summary: "40 min + 4 × 20s strides • Zone 2",
+                        warmup: null,
+                        workout: "40 min continuous running + 4 × 20s fast strides",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: "<strong>Strides:</strong> These are short, fast accelerations at the end of your easy run. Run them fast but relaxed—no straining. They keep your neuromuscular system sharp and break up the monotony of easy running."
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "95 min trail • HR < 150",
+                        warmup: null,
+                        workout: "95 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            3: {
+                title: "Building Speed-Endurance",
+                focus: "Pushing the lactate threshold higher.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "VO2 Max / Speed",
+                        summary: "5 × 800m @ 3:55–3:58/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "5 × 800m",
+                        pace: "3:55–3:58/km",
+                        rest: "90 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "2 × 3km @ 4:15/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "2 × 3km",
+                        pace: "4:15/km",
+                        rest: "2 min easy jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "A tough mental workout, focus on relaxed form."
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "40 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "40 min continuous running",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "100 min trail • HR < 150",
+                        warmup: null,
+                        workout: "100 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            4: {
+                title: "The \"Down\" Week",
+                focus: "Letting your body absorb the training and shed fatigue before the final push.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "VO2 Max / Speed",
+                        summary: "8 × 400m @ 3:55/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "8 × 400m",
+                        pace: "3:55/km",
+                        rest: "60 sec standing/walking between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "Keep it light and snappy."
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "20 min Tempo @ 4:20/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "20 min continuous Tempo run",
+                        pace: "4:20/km",
+                        rest: null,
+                        cooldown: "5–10 min easy jog",
+                        note: "Do not push the pace here, just a smooth, comfortably hard effort."
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "30 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "30 min continuous running",
+                        pace: "Very easy / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "75 min trail • HR < 150",
+                        warmup: null,
+                        workout: "75 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: "Cutback week, enjoy the shorter duration."
+                    }
+                ]
+            },
+            5: {
+                title: "The Predictor Week",
+                focus: "Testing your 5K race pace.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "VO2 Max / Speed",
+                        summary: "4 × 1km @ 3:55–3:58/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "4 × 1km",
+                        pace: "3:55–3:58/km",
+                        rest: "90 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "THURSDAY", cat: "race", label: "The Predictor",
+                        summary: "3 × 1.6km (1 mile) @ 3:58/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "3 × 1.6km (1 mile)",
+                        pace: "3:58/km",
+                        rest: "Exactly 2 min walking/jogging between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "<strong>If you can hit these paces and finish the workout, you are physically ready for a sub-20.</strong>"
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "35 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "35 min continuous running",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "90 min trail • HR < 150",
+                        warmup: null,
+                        workout: "90 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            6: {
+                title: "Taper & 5K Race Week",
+                focus: "Shedding all fatigue so your legs are completely fresh for a 5K Time Trial.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "Tune-up",
+                        summary: "3 × 1km @ 3:59/km (Goal 5K Pace)",
+                        warmup: "10–15 min easy jog",
+                        workout: "3 × 1km",
+                        pace: "3:59/km (Goal 5K Pace)",
+                        rest: "2 min walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "This should feel surprisingly smooth and controlled."
+                    },
+                    {
+                        day: "THURSDAY", cat: "easy", label: "Easy Run + Strides",
+                        summary: "25 min + 4 × 20s strides • Zone 2",
+                        warmup: null,
+                        workout: "25 min continuous running + 4 × 20s fast strides",
+                        pace: "Very easy / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: "<strong>Strides:</strong> Short, fast accelerations to keep your legs sharp before race day. Stay relaxed—this is activation, not a workout."
+                    },
+                    {
+                        day: "FRIDAY", cat: "rest", label: "Rest",
+                        summary: "Complete rest day",
+                        warmup: null,
+                        workout: "REST",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        note: "Complete rest day to top up glycogen stores and freshen legs."
+                    },
+                    {
+                        day: "SUNDAY", cat: "race", label: "RACE DAY — 5K Time Trial",
+                        summary: "5km TT • Target: Sub-3:59/km avg",
+                        warmup: "15 min easy jog + dynamic drills + 2–3 short strides",
+                        workout: "5km Time Trial",
+                        pace: "Sub 3:59/km average",
+                        rest: null,
+                        cooldown: null,
+                        gear: "Zoom Fly 6 (or equivalent carbon plate shoe)",
+                        note: "Skip the trail run today. Find a flat, fast road or track. <strong>Go for the Sub-20!</strong>",
+                        isRace: true
+                    }
+                ]
+            },
+            7: {
+                title: "Post-Race Recovery & Re-establishing Base",
+                focus: "Recovering from the 5K effort while keeping the legs turning over.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "Speed",
+                        summary: "8 × 400m @ 3:45–3:50/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "8 × 400m",
+                        pace: "3:45–3:50/km",
+                        rest: "60 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "Slightly faster than 5K pace to build top-end speed."
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "20 min Tempo @ 4:15/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "20 min continuous Tempo run",
+                        pace: "4:15/km",
+                        rest: null,
+                        cooldown: "5–10 min easy jog",
+                        note: "A smooth, controlled effort to re-introduce threshold work."
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "35 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "35 min continuous running",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "90 min trail • HR < 150",
+                        warmup: null,
+                        workout: "90 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            8: {
+                title: "Extending the Intervals",
+                focus: "Pushing the threshold pace slightly faster and extending speed intervals.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "Speed-Endurance",
+                        summary: "6 × 800m @ 3:50–3:55/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "6 × 800m",
+                        pace: "3:50–3:55/km",
+                        rest: "90 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "3 × 2km @ 4:10/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "3 × 2km",
+                        pace: "4:10/km",
+                        rest: "90 sec easy jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run + Strides",
+                        summary: "40 min + 4 × 20s strides • Zone 2",
+                        warmup: null,
+                        workout: "40 min continuous running + 4 × 20s fast strides",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: "<strong>Strides:</strong> 4 × 20-second fast accelerations after the main run. Keep them smooth and relaxed. These maintain your speed and provide a fun change of pace at the end of an easy day."
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "100 min trail • HR < 150",
+                        warmup: null,
+                        workout: "100 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            9: {
+                title: "The Mid-Block Grind",
+                focus: "Building massive aerobic strength and pushing the lactate threshold higher.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "10K Pace Practice",
+                        summary: "5 × 1km @ 3:55–3:58/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "5 × 1km",
+                        pace: "3:55–3:58/km",
+                        rest: "90 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "2 × 3km @ 4:10/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "2 × 3km",
+                        pace: "4:10/km",
+                        rest: "2 min easy jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "This mimics the middle miles of a 10K. Stay relaxed."
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "45 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "45 min continuous running",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "110 min trail • HR < 150",
+                        warmup: null,
+                        workout: "110 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            10: {
+                title: "The \"Down\" Week",
+                focus: "Shedding fatigue while maintaining aerobic capacity.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "Speed",
+                        summary: "10 × 400m @ 3:50/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "10 × 400m",
+                        pace: "3:50/km",
+                        rest: "60 sec standing/walking between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "Keep it light and snappy to flush the legs."
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "30 min Tempo @ 4:20/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "30 min continuous Tempo run",
+                        pace: "4:20/km",
+                        rest: null,
+                        cooldown: "5–10 min easy jog",
+                        note: "Slightly slower tempo pace. Focus on perfect, relaxed form."
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "30 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "30 min continuous running",
+                        pace: "Very easy / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "80 min trail • HR < 150",
+                        warmup: null,
+                        workout: "80 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            11: {
+                title: "The Predictor Week",
+                focus: "Testing your physical and mental readiness for the Sub-40.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "race", label: "The 10K Predictor",
+                        summary: "3 × 2km @ 3:58–4:00/km (Goal 10K Pace)",
+                        warmup: "10–15 min easy jog",
+                        workout: "3 × 2km",
+                        pace: "3:58–4:00/km (Goal 10K Pace)",
+                        rest: "Exactly 2 min walking/jogging between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "<strong>If you can hit this workout feeling strong, the Sub-40 is in the bag.</strong>"
+                    },
+                    {
+                        day: "THURSDAY", cat: "threshold", label: "Threshold",
+                        summary: "4 × 1.5km @ 4:10/km",
+                        warmup: "10–15 min easy jog",
+                        workout: "4 × 1.5km",
+                        pace: "4:10/km",
+                        rest: "90 sec easy jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: null
+                    },
+                    {
+                        day: "FRIDAY", cat: "easy", label: "Easy Road Run",
+                        summary: "35 min continuous • Zone 2",
+                        warmup: null,
+                        workout: "35 min continuous running",
+                        pace: "Conversational / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: null
+                    },
+                    {
+                        day: "SUNDAY", cat: "trail", label: "Trail Long Run",
+                        summary: "90 min trail • HR < 150",
+                        warmup: null,
+                        workout: "90 min continuous trail running/hiking",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        hr: "Strict cap of < 150 bpm",
+                        note: null
+                    }
+                ]
+            },
+            12: {
+                title: "Taper & 10K Race Week",
+                focus: "Shedding all fatigue so your legs are completely fresh for the 10K.",
+                workouts: [
+                    {
+                        day: "TUESDAY", cat: "speed", label: "Tune-up",
+                        summary: "3 × 1km @ 3:59/km (Goal 10K Pace)",
+                        warmup: "10–15 min easy jog",
+                        workout: "3 × 1km",
+                        pace: "3:59/km (Goal 10K Pace)",
+                        rest: "90 sec walking/light jog between reps",
+                        cooldown: "5–10 min easy jog",
+                        note: "Lock into race pace. It should feel very comfortable."
+                    },
+                    {
+                        day: "THURSDAY", cat: "easy", label: "Easy Run + Strides",
+                        summary: "25 min + 4 × 20s strides • Zone 2",
+                        warmup: null,
+                        workout: "25 min continuous running + 4 × 20s fast strides",
+                        pace: "Very easy / Zone 2",
+                        rest: null,
+                        cooldown: null,
+                        note: "<strong>Strides:</strong> Final speed activation before race day. 4 × 20-second bursts, fast but completely relaxed. These prime your nervous system for Sunday."
+                    },
+                    {
+                        day: "FRIDAY", cat: "rest", label: "Rest",
+                        summary: "Complete rest day",
+                        warmup: null,
+                        workout: "REST",
+                        pace: null,
+                        rest: null,
+                        cooldown: null,
+                        note: "Complete rest day. Eat well and hydrate."
+                    },
+                    {
+                        day: "SUNDAY", cat: "race", label: "RACE DAY — 10K",
+                        summary: "10km Race • Target: Sub-4:00/km avg",
+                        warmup: "15 min easy jog + dynamic drills + 2–3 short strides",
+                        workout: "10km Race or Time Trial",
+                        pace: "Sub 4:00/km average",
+                        rest: null,
+                        cooldown: null,
+                        gear: "Zoom Fly 6 (or equivalent race shoe)",
+                        note: "Skip the trail run. Find a flat route. <strong>Trust your fitness and hold the line!</strong>",
+                        isRace: true
+                    }
+                ]
             }
         };
 
-        // Scroll to specific week
-        window.scrollToWeek = function(weekNumber) {
-            const weekCard = document.getElementById(`week-${weekNumber}`);
-            if (weekCard) {
-                // Set flag to prevent scroll spy from interfering
-                isScrollingProgrammatically = true;
+        let currentPart = 1;
+        let currentWeek = 1;
 
-                // Scroll the page vertically to the week card
-                const headerHeight = 57; // Header height
-                const tabsHeight = 60; // Week tabs height
-                const offset = headerHeight + tabsHeight + 20; // Total offset + spacing
+        function switchPart(part) {
+            currentPart = part;
+            document.querySelectorAll('.part-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === part - 1);
+            });
+            const startWeek = part === 1 ? 1 : 7;
+            renderWeekTabs(startWeek, startWeek + 5);
+            switchWeek(startWeek);
+        }
 
-                const elementPosition = weekCard.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-
-                // Update active tab (this also scrolls the tab horizontally into view)
-                updateActiveWeekTab(weekNumber);
-
-                // Reset flag after scroll completes
-                setTimeout(() => {
-                    isScrollingProgrammatically = false;
-                }, 1000);
-
-                // Vibrate on mobile
-                if (navigator.vibrate) {
-                    navigator.vibrate(10);
-                }
+        function renderWeekTabs(start, end) {
+            const container = document.getElementById('weekTabs');
+            container.innerHTML = '';
+            for (let i = start; i <= end; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'week-tab' + (i === start ? ' active' : '');
+                btn.setAttribute('data-week', i);
+                btn.innerHTML = 'W' + i + '<span class="tab-dot"></span>';
+                btn.onclick = () => switchWeek(i);
+                container.appendChild(btn);
             }
+            updateTabDots();
+        }
+
+        function switchWeek(weekNum) {
+            currentWeek = weekNum;
+            const start = currentPart === 1 ? 1 : 7;
+            document.querySelectorAll('.week-tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === weekNum - start);
+            });
+            document.querySelectorAll('.week-view').forEach(v => v.classList.remove('active'));
+            const el = document.getElementById('week-' + weekNum);
+            if (el) el.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleCard(card) {
+            card.classList.toggle('open');
+        }
+
+        function renderWorkoutCard(wo, weekNum, woIdx) {
+            var fields = [];
+            if (wo.warmup) fields.push(['Warm-up', wo.warmup]);
+            fields.push(['Workout', wo.workout]);
+            if (wo.pace) fields.push(['Target Pace', wo.pace]);
+            if (wo.hr) fields.push(['Target HR', wo.hr]);
+            if (wo.rest) fields.push(['Rest', wo.rest]);
+            if (wo.cooldown) fields.push(['Cool-down', wo.cooldown]);
+            if (wo.gear) fields.push(['Gear', wo.gear]);
+
+            var raceTag = wo.isRace ? '<span class="badge-race">Race Day</span>' : '';
+            var isDone = isCompleted(weekNum, woIdx);
+            var cardClass = 'wo-card' + (isDone ? ' completed' : '');
+            var checkClass = 'wo-check' + (isDone ? ' done' : '');
+            var checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+            return '<div class="' + cardClass + '" onclick="toggleCard(this)">' +
+                '<div class="wo-head">' +
+                '<div class="' + checkClass + '" onclick="toggleComplete(' + weekNum + ',' + woIdx + ',event)">' + checkSvg + '</div>' +
+                '<div class="wo-dot ' + wo.cat + '"></div>' +
+                '<div class="wo-info">' +
+                '<div class="wo-day">' + wo.day + '</div>' +
+                '<div class="wo-title">' + wo.label + raceTag + '</div>' +
+                '</div>' +
+                '<div class="wo-chevron">▾</div>' +
+                '</div>' +
+                '<div class="wo-body"><div class="wo-inner">' +
+                '<div class="wo-section">' +
+                '<div class="wo-section-label">Summary</div>' +
+                '<div style="font-size:14px;font-weight:600;color:var(--text-primary)">' + wo.summary + '</div>' +
+                '</div>' +
+                '<div class="wo-section">' +
+                '<div class="wo-section-label">Details</div>' +
+                '<dl class="wo-detail-grid">' +
+                fields.map(function (f) {
+                    return '<dt>' + f[0] + '</dt><dd>' + f[1] + '</dd>';
+                }).join('') +
+                '</dl>' +
+                '</div>' +
+                (wo.note ? '<div class="wo-section"><div class="wo-section-label">Notes</div><div class="wo-note ' + wo.cat + '">' + wo.note + '</div></div>' : '') +
+                '</div></div>' +
+                '</div>';
+        }
+
+        function renderAllWeeks() {
+            var container = document.getElementById('weekContainer');
+            var html = '';
+            for (var w = 1; w <= 12; w++) {
+                var week = plan[w];
+                var comp = getWeekCompletion(w);
+                var pct = Math.round((comp.done / comp.total) * 100);
+
+                html += '<div class="week-view' + (w === 1 ? ' active' : '') + '" id="week-' + w + '">';
+                html += '<div class="week-banner">';
+                html += '<h2>Week ' + w + ': ' + week.title + '</h2>';
+                html += '<div class="focus">' + week.focus + '</div>';
+                html += '</div>';
+
+                html += '<div class="week-progress">';
+                html += '<div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill-' + w + '" style="width:' + pct + '%"></div></div>';
+                html += '<div class="progress-text" id="progress-text-' + w + '"><span class="done-count">' + comp.done + '</span> / ' + comp.total + ' done</div>';
+                html += '</div>';
+
+                html += '<div class="blueprint"><h4>Weekly Blueprint</h4>';
+                var days = [
+                    ['Tue', 'Speed / VO2 Max'],
+                    ['Thu', 'Lactate Threshold'],
+                    ['Fri', 'Easy Road Run (Zone 2)'],
+                    ['Sun', 'Trail Long Run (HR < 150)']
+                ];
+                days.forEach(function (d) {
+                    html += '<div class="blueprint-item"><span class="blueprint-day">' + d[0] + '</span><span class="blueprint-desc">' + d[1] + '</span></div>';
+                });
+                html += '</div>';
+
+                html += '<div class="workouts">';
+                week.workouts.forEach(function (wo, idx) {
+                    html += renderWorkoutCard(wo, w, idx);
+                });
+                html += '</div></div>';
+            }
+            container.innerHTML = html;
+        }
+
+        // Pace reference data & rendering
+        var paceInPaceMode = false;
+
+        var paceZones = [
+            {
+                emoji: '🔴',
+                name: 'Speed / VO2 Max Paces',
+                day: 'Tuesdays',
+                color: 'clr-red',
+                zones: [
+                    { label: '5K Block', sub: 'Weeks 1–6', value: '3:55–3:58/km' },
+                    { label: '10K Block', sub: 'Weeks 7–12', value: '3:45–3:55/km' }
+                ],
+                focus: 'Short, sharp efforts to develop <strong>top-end aerobic power</strong> and running economy at race-relevant speeds.'
+            },
+            {
+                emoji: '🟠',
+                name: 'Goal Race Paces',
+                day: 'Predictors & Tune-ups',
+                color: 'clr-orange',
+                zones: [
+                    { label: '5K Goal', sub: 'Sub-20', value: '3:59/km' },
+                    { label: '10K Goal', sub: 'Sub-40', value: '3:58–4:00/km' }
+                ],
+                focus: 'Race-specific pace to <strong>lock in your target rhythm</strong>. These efforts prove your fitness before race day.'
+            },
+            {
+                emoji: '🟡',
+                name: 'Lactate Threshold / Tempo',
+                day: 'Thursdays',
+                color: 'clr-yellow',
+                zones: [
+                    { label: '5K Block', sub: 'Weeks 1–6', value: '4:15–4:20/km' },
+                    { label: '10K Block', sub: 'Weeks 7–12', value: '4:10–4:20/km' }
+                ],
+                focus: 'Comfortably hard pace <strong>just below race effort</strong>. Pushes your lactate threshold higher so race pace feels easier.'
+            },
+            {
+                emoji: '🟢',
+                name: 'Easy / Recovery Runs',
+                day: 'Fridays',
+                color: 'clr-green',
+                zones: [
+                    { label: 'All Blocks', sub: 'Zone 2', value: '5:45–6:30/km' }
+                ],
+                focus: 'Active recovery that <strong>builds aerobic base without stress</strong>. Conversational pace — if you can\'t chat, slow down.'
+            },
+            {
+                emoji: '🔵',
+                name: 'Trail Long Runs',
+                day: 'Sundays',
+                color: 'clr-blue',
+                zones: [
+                    { label: 'All Blocks', sub: 'Effort-Based', value: 'HR < 150' }
+                ],
+                focus: 'No pace target — <strong>run entirely by heart rate and feel</strong>. Power hike the hills. Build endurance and enjoy the trails.'
+            }
+        ];
+
+        function renderPaceView() {
+            var html = '<div class="pace-intro"><h2>Pace Reference Guide</h2>';
+            html += '<p>All target paces for the 12-week plan</p></div>';
+
+            paceZones.forEach(function (z) {
+                html += '<div class="pace-card">';
+                html += '<div class="pace-card-bar ' + z.color + '"></div>';
+                html += '<div class="pace-card-body">';
+                html += '<div class="pace-card-header">';
+                html += '<span class="pace-card-emoji">' + z.emoji + '</span>';
+                html += '<span class="pace-card-name">' + z.name + '</span>';
+                html += '</div>';
+                html += '<div class="pace-card-day">' + z.day + '</div>';
+
+                html += '<div class="pace-zones">';
+                z.zones.forEach(function (zone) {
+                    html += '<div class="pace-zone">';
+                    html += '<div class="pace-zone-label">' + zone.label + '</div>';
+                    html += '<div class="pace-zone-value">' + zone.value + '<small>' + zone.sub + '</small></div>';
+                    html += '</div>';
+                });
+                html += '</div>';
+
+                html += '<div class="pace-focus">' + z.focus + '</div>';
+                html += '</div></div>';
+            });
+
+            document.getElementById('paceView').innerHTML = html;
+        }
+
+        function switchToPaces() {
+            paceInPaceMode = true;
+            // Deactivate part buttons, activate pace button
+            document.querySelectorAll('.part-btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            document.getElementById('paceRefBtn').classList.add('active');
+            // Hide week tabs and week content, show pace view
+            document.getElementById('weekTabs').style.display = 'none';
+            document.getElementById('weekContainer').style.display = 'none';
+            document.getElementById('paceView').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitPaceMode() {
+            if (!paceInPaceMode) return;
+            paceInPaceMode = false;
+            document.getElementById('paceRefBtn').classList.remove('active');
+            document.getElementById('paceView').classList.remove('active');
+            document.getElementById('weekTabs').style.display = '';
+            document.getElementById('weekContainer').style.display = '';
+        }
+
+        // Patch switchPart to exit pace mode
+        var _origSwitchPart = switchPart;
+        switchPart = function (part) {
+            exitPaceMode();
+            _origSwitchPart(part);
         };
 
-        // Update active week tab
-        function updateActiveWeekTab(weekNumber) {
-            const tabs = document.querySelectorAll('.week-tab');
-            tabs.forEach(tab => {
-                if (parseInt(tab.dataset.week) === weekNumber) {
-                    tab.classList.add('active');
-                    // Scroll tab into view
-                    tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-        }
-
-        // Setup scroll spy to auto-update active week tab
-        let scrollSpyObserver;
-        let isScrollingProgrammatically = false;
-
-        function setupScrollSpy() {
-            // Clean up previous observer
-            if (scrollSpyObserver) {
-                scrollSpyObserver.disconnect();
-            }
-
-            const weekCards = document.querySelectorAll('.week-card');
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '-140px 0px -60% 0px', // Adjusted for header + tabs
-                threshold: 0.1
-            };
-
-            scrollSpyObserver = new IntersectionObserver((entries) => {
-                // Find the most visible entry
-                let mostVisible = null;
-                let maxRatio = 0;
-
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-                        maxRatio = entry.intersectionRatio;
-                        mostVisible = entry;
-                    }
-                });
-
-                // Update active tab based on most visible week
-                if (mostVisible) {
-                    const weekNumber = parseInt(mostVisible.target.dataset.weekNumber);
-                    if (!isScrollingProgrammatically) {
-                        updateActiveWeekTab(weekNumber);
-                    }
-                }
-            }, observerOptions);
-
-            weekCards.forEach(card => {
-                scrollSpyObserver.observe(card);
-            });
-        }
-
-        // ========================================
-        // MODAL FUNCTIONS
-        // ========================================
-
-        function openLogSessionModal(sessionId) {
-            const [weekNum, day] = sessionId.split('-');
-            const week = TRAINING_PLAN.weeks.find(w => w.number === parseInt(weekNum));
-            const session = week.sessions.find(s => s.day === day);
-            const existingResult = state.sessionResults[sessionId] || {};
-
-            const modalHTML = `
-                <div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 modal-backdrop" onclick="closeModal(event)">
-                    <div class="w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-6 max-h-[90vh] overflow-y-auto animate-slide-in"
-                         style="background: var(--color-surface);" onclick="event.stopPropagation()">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl font-bold">Log Session</h2>
-                            <button onclick="closeModal()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="mb-4 p-3 rounded-lg" style="background: var(--color-bg);">
-                            <div class="font-bold text-lg">${session.day} - ${session.type}</div>
-                            <div class="text-sm" style="color: var(--color-text-secondary);">${session.distance}</div>
-                        </div>
-
-                        <form id="log-session-form" class="space-y-6">
-                            <!-- Screenshot Upload -->
-                            <div>
-                                <label class="block text-sm font-semibold mb-2">Screenshots</label>
-                                <div class="upload-zone rounded-lg p-8 text-center cursor-pointer" id="upload-zone">
-                                    <svg class="w-12 h-12 mx-auto mb-3" style="color: var(--color-text-secondary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                    </svg>
-                                    <p class="text-sm mb-2" style="color: var(--color-text-secondary);">Drag & drop screenshots or tap to browse</p>
-                                    <input type="file" id="screenshot-input" accept="image/*" multiple class="hidden">
-                                </div>
-                                <div id="screenshot-preview" class="grid grid-cols-2 gap-2 mt-3"></div>
-                            </div>
-
-                            <!-- Performance Data -->
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold mb-2">Actual Pace</label>
-                                    <input type="text" id="actual-pace" placeholder="5:45/km"
-                                           value="${existingResult.actualPace || ''}"
-                                           class="w-full px-4 py-3 rounded-lg border-2 font-mono text-base"
-                                           style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold mb-2">Avg HR</label>
-                                    <input type="number" id="actual-hr" placeholder="160"
-                                           value="${existingResult.actualHR || ''}"
-                                           class="w-full px-4 py-3 rounded-lg border-2 font-mono text-base"
-                                           style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);">
-                                </div>
-                            </div>
-
-                            <!-- Feel Scale -->
-                            <div>
-                                <label class="block text-sm font-semibold mb-3">How Did It Feel?</label>
-                                <div class="feel-scale">
-                                    <span class="feel-option ${existingResult.feel === 1 ? 'selected' : ''}" data-feel="1">😫</span>
-                                    <span class="feel-option ${existingResult.feel === 2 ? 'selected' : ''}" data-feel="2">😐</span>
-                                    <span class="feel-option ${existingResult.feel === 3 ? 'selected' : ''}" data-feel="3">😊</span>
-                                    <span class="feel-option ${existingResult.feel === 4 ? 'selected' : ''}" data-feel="4">😄</span>
-                                    <span class="feel-option ${existingResult.feel === 5 ? 'selected' : ''}" data-feel="5">🔥</span>
-                                </div>
-                                <input type="hidden" id="feel-value" value="${existingResult.feel || ''}">
-                            </div>
-
-                            <!-- Notes -->
-                            <div>
-                                <label class="block text-sm font-semibold mb-2">Your Notes (Optional)</label>
-                                <textarea id="session-notes" rows="3" placeholder="How did the session go? Any insights?"
-                                          class="w-full px-4 py-3 rounded-lg border-2 text-base resize-none"
-                                          style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);">${existingResult.notes || ''}</textarea>
-                            </div>
-
-                            <!-- Submit -->
-                            <button type="submit" class="w-full py-4 px-4 rounded-lg text-white font-bold text-lg shadow-lg transition-all active:scale-95 bg-success">
-                                Save Session ✅
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('modal-container').innerHTML = modalHTML;
-
-            // Setup upload zone
-            const uploadZone = document.getElementById('upload-zone');
-            const fileInput = document.getElementById('screenshot-input');
-            let selectedFiles = [];
-
-            uploadZone.addEventListener('click', () => fileInput.click());
-
-            uploadZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadZone.classList.add('drag-over');
-            });
-
-            uploadZone.addEventListener('dragleave', () => {
-                uploadZone.classList.remove('drag-over');
-            });
-
-            uploadZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadZone.classList.remove('drag-over');
-                handleFiles(e.dataTransfer.files);
-            });
-
-            fileInput.addEventListener('change', (e) => {
-                handleFiles(e.target.files);
-            });
-
-            function handleFiles(files) {
-                selectedFiles = [...selectedFiles, ...Array.from(files)];
-                updateScreenshotPreview();
-            }
-
-            function updateScreenshotPreview() {
-                const preview = document.getElementById('screenshot-preview');
-                preview.innerHTML = selectedFiles.map((file, index) => `
-                    <div class="relative">
-                        <img src="${URL.createObjectURL(file)}" class="w-full h-24 object-cover rounded-lg">
-                        <button type="button" onclick="removeScreenshot(${index})"
-                                class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full text-xs">×</button>
-                    </div>
-                `).join('');
-            }
-
-            window.removeScreenshot = (index) => {
-                selectedFiles.splice(index, 1);
-                updateScreenshotPreview();
-            };
-
-            // Setup feel scale
-            document.querySelectorAll('.feel-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    document.querySelectorAll('.feel-option').forEach(o => o.classList.remove('selected'));
-                    option.classList.add('selected');
-                    document.getElementById('feel-value').value = option.dataset.feel;
-
-                    // Vibrate on mobile
-                    if (navigator.vibrate) {
-                        navigator.vibrate(20);
-                    }
-                });
-            });
-
-            // Setup form submission
-            document.getElementById('log-session-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                // Save screenshots as base64 data URLs
-                const screenshots = [];
-                for (const file of selectedFiles) {
-                    const screenshotData = await saveScreenshot(file);
-                    screenshots.push(screenshotData);
-                }
-
-                // Collect form data
-                const data = {
-                    screenshots: screenshots,
-                    actualPace: document.getElementById('actual-pace').value,
-                    actualHR: document.getElementById('actual-hr').value,
-                    feel: parseInt(document.getElementById('feel-value').value),
-                    notes: document.getElementById('session-notes').value,
-                    completed: true
-                };
-
-                // Save to localStorage
-                saveSessionResult(weekNum, day, data);
-
-                // Vibrate on success
-                if (navigator.vibrate) {
-                    navigator.vibrate([50, 100, 50]);
-                }
-
-                // Close modal and refresh
-                closeModal();
-                renderPlanView();
-            });
-        }
-
-        function editSessionResult(sessionId) {
-            openLogSessionModal(sessionId);
-        }
-
-        function closeModal(event) {
-            if (!event || event.target.classList.contains('modal-backdrop')) {
-                document.getElementById('modal-container').innerHTML = '';
-            }
-        }
-
-        function openImageLightbox(imageData) {
-            const modalHTML = `
-                <div class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop" onclick="closeModal()">
-                    <img src="${imageData}" class="max-w-full max-h-full rounded-lg shadow-2xl" onclick="event.stopPropagation()">
-                </div>
-            `;
-            document.getElementById('modal-container').innerHTML = modalHTML;
-        }
-
-        // ========================================
-        // INITIALIZATION
-        // ========================================
-
-        async function init() {
-            try {
-                console.log('Initializing app...');
-
-                initDarkMode();
-                console.log('Dark mode initialized');
-
-                loadFromStorage();
-                console.log('Data loaded from localStorage');
-
-                renderPlanView();
-                console.log('Initial render complete');
-
-                // Bottom nav
-                document.querySelectorAll('.nav-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        state.view = btn.dataset.view;
-
-                        if (state.view === 'progress') {
-                            showProgressView();
-                        } else if (state.view === 'paces') {
-                            showPacesView();
-                        } else {
-                            renderPlanView();
-                        }
-
-                        // Vibrate on mobile
-                        if (navigator.vibrate) {
-                            navigator.vibrate(10);
-                        }
-                    });
-                });
-
-                console.log('App initialized successfully');
-            } catch (error) {
-                console.error('Initialization error:', error);
-                // Try to render anyway
-                try {
-                    renderPlanView();
-                } catch (renderError) {
-                    console.error('Render error:', renderError);
-                    document.getElementById('main-content').innerHTML = `
-                        <div class="p-6 bg-red-100 dark:bg-red-900 rounded-lg text-red-800 dark:text-red-200">
-                            <strong>Error:</strong> ${error.message || 'Failed to initialize app'}
-                            <br><br>
-                            Please check the browser console for details.
-                        </div>
-                    `;
-                }
-            }
-        }
-
-        function showProgressView() {
-            const completedSessions = Object.values(state.sessionResults).filter(r => r.completed).length;
-            const totalSessions = TRAINING_PLAN.weeks.reduce((sum, week) => sum + week.sessions.length, 0);
-            const completionRate = Math.round((completedSessions / totalSessions) * 100);
-
-            const mainContent = document.querySelector('main');
-            mainContent.innerHTML = `
-                <div class="animate-fade-in-up">
-                    <h2 class="text-3xl font-bold mb-6">Your Progress</h2>
-
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="p-6 rounded-xl shadow-lg" style="background: var(--color-surface);">
-                            <div class="text-3xl font-bold text-primary mb-1">${completedSessions}</div>
-                            <div class="text-sm" style="color: var(--color-text-secondary);">Sessions Completed</div>
-                        </div>
-                        <div class="p-6 rounded-xl shadow-lg" style="background: var(--color-surface);">
-                            <div class="text-3xl font-bold text-secondary mb-1">${completionRate}%</div>
-                            <div class="text-sm" style="color: var(--color-text-secondary);">Completion Rate</div>
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-xl shadow-lg mb-6" style="background: var(--color-surface);">
-                        <h3 class="text-lg font-bold mb-4">Week by Week</h3>
-                        <div class="space-y-3">
-                            ${TRAINING_PLAN.weeks.map(week => {
-                                const weekSessions = week.sessions.length;
-                                const weekCompleted = week.sessions.filter(session => {
-                                    const id = `${week.number}-${session.day}`;
-                                    return state.sessionResults[id]?.completed;
-                                }).length;
-                                const weekProgress = Math.round((weekCompleted / weekSessions) * 100);
-
-                                return `
-                                    <div>
-                                        <div class="flex justify-between text-sm mb-1">
-                                            <span class="font-semibold">Week ${week.number}</span>
-                                            <span style="color: var(--color-text-secondary);">${weekCompleted}/${weekSessions}</span>
-                                        </div>
-                                        <div class="w-full h-2 rounded-full" style="background: var(--color-border);">
-                                            <div class="h-full rounded-full bg-success transition-all" style="width: ${weekProgress}%"></div>
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-
-                    <div class="p-6 rounded-xl shadow-lg" style="background: linear-gradient(135deg, #FF6B35, #FF8A5A); color: white;">
-                        <div class="text-center">
-                            <div class="text-5xl mb-3">🎯</div>
-                            <div class="text-2xl font-bold mb-2">Sub-1:40 Half Marathon</div>
-                            <div class="text-lg opacity-90">January 18, 2026</div>
-                            <div class="mt-4 text-sm opacity-90">4:44/km pace • Keep pushing! Every session counts.</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showPacesView() {
-            const mainContent = document.querySelector('main');
-            mainContent.innerHTML = `
-                <div class="animate-fade-in-up">
-                    <h2 class="text-3xl font-bold mb-2">Quick Reference</h2>
-                    <p class="text-sm mb-6" style="color: var(--color-text-secondary);">Your personalized training zones & race paces</p>
-
-                    <!-- Training Zones -->
-                    <div class="p-4 rounded-xl shadow-lg mb-6" style="background: var(--color-surface);">
-                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                            <span class="text-xl">💪</span> Training Zones
-                        </h3>
-                        <div class="space-y-3">
-                            <!-- Recovery -->
-                            <div class="p-3 rounded-lg" style="background: linear-gradient(135deg, rgba(74, 91, 175, 0.1), rgba(74, 91, 175, 0.05)); border-left: 4px solid #4A5BAF;">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="font-bold text-sm">Recovery</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(74, 91, 175, 0.2); color: #4A5BAF;">&lt;145 bpm</span>
-                                </div>
-                                <div class="font-mono text-lg font-semibold" style="color: var(--color-text);">6:00-6:30/km</div>
-                                <div class="text-xs" style="color: var(--color-text-secondary);">9:39-10:27/mi • Active recovery, easy days</div>
-                            </div>
-
-                            <!-- Easy -->
-                            <div class="p-3 rounded-lg" style="background: linear-gradient(135deg, rgba(74, 91, 175, 0.15), rgba(74, 91, 175, 0.08)); border-left: 4px solid #5A6BBF;">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="font-bold text-sm">Easy</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(74, 91, 175, 0.2); color: #5A6BBF;">134-150 bpm</span>
-                                </div>
-                                <div class="font-mono text-lg font-semibold" style="color: var(--color-text);">5:45-6:15/km</div>
-                                <div class="text-xs" style="color: var(--color-text-secondary);">9:15-10:04/mi • Aerobic base building</div>
-                            </div>
-
-                            <!-- Long Run Base -->
-                            <div class="p-3 rounded-lg" style="background: linear-gradient(135deg, rgba(6, 167, 125, 0.1), rgba(6, 167, 125, 0.05)); border-left: 4px solid #06A77D;">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="font-bold text-sm">Long Run Base</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(6, 167, 125, 0.2); color: #06A77D;">145-155 bpm</span>
-                                </div>
-                                <div class="font-mono text-lg font-semibold" style="color: var(--color-text);">5:15-5:45/km</div>
-                                <div class="text-xs" style="color: var(--color-text-secondary);">8:27-9:15/mi • Endurance development</div>
-                            </div>
-
-                            <!-- Tempo/Marathon -->
-                            <div class="p-3 rounded-lg" style="background: linear-gradient(135deg, rgba(255, 186, 82, 0.15), rgba(255, 186, 82, 0.08)); border-left: 4px solid #FFBA52;">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="font-bold text-sm">Tempo/Marathon</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(255, 186, 82, 0.3); color: #B88A3A;">151-159 bpm</span>
-                                </div>
-                                <div class="font-mono text-lg font-semibold" style="color: var(--color-text);">5:00-5:15/km</div>
-                                <div class="text-xs" style="color: var(--color-text-secondary);">8:02-8:27/mi • Aerobic power, marathon pace</div>
-                            </div>
-
-                            <!-- Threshold -->
-                            <div class="p-3 rounded-lg" style="background: linear-gradient(135deg, rgba(255, 107, 90, 0.15), rgba(255, 107, 90, 0.08)); border-left: 4px solid #FF6B5A;">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="font-bold text-sm">Threshold</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(255, 107, 90, 0.2); color: #FF6B5A;">160-173 bpm</span>
-                                </div>
-                                <div class="font-mono text-lg font-semibold" style="color: var(--color-text);">4:25-4:45/km</div>
-                                <div class="text-xs" style="color: var(--color-text-secondary);">7:06-7:38/mi • Lactate threshold training</div>
-                            </div>
-
-                            <!-- VO2 Max -->
-                            <div class="p-3 rounded-lg" style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(220, 38, 38, 0.08)); border-left: 4px solid #DC2626;">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="font-bold text-sm">VO2 Max/Interval</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(220, 38, 38, 0.2); color: #DC2626;">174+ bpm</span>
-                                </div>
-                                <div class="font-mono text-lg font-semibold" style="color: var(--color-text);">4:05-4:20/km</div>
-                                <div class="text-xs" style="color: var(--color-text-secondary);">6:34-6:58/mi • Speed and VO2 max work</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Race Paces -->
-                    <div class="p-4 rounded-xl shadow-lg mb-6" style="background: var(--color-surface);">
-                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                            <span class="text-xl">🏁</span> Race Paces
-                        </h3>
-                        <div class="space-y-3">
-                            <!-- 5K -->
-                            <div class="flex items-center justify-between p-3 rounded-lg" style="background: var(--color-bg);">
-                                <div>
-                                    <div class="font-bold">5K</div>
-                                    <div class="text-xs" style="color: var(--color-text-secondary);">Predicted: 21:08</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-mono text-lg font-semibold text-primary">4:14/km</div>
-                                    <div class="text-xs" style="color: var(--color-text-secondary);">6:48/mi</div>
-                                </div>
-                            </div>
-
-                            <!-- 10K -->
-                            <div class="flex items-center justify-between p-3 rounded-lg" style="background: var(--color-bg);">
-                                <div>
-                                    <div class="font-bold">10K</div>
-                                    <div class="text-xs" style="color: var(--color-text-secondary);">Predicted: 43:46</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-mono text-lg font-semibold text-primary">4:23/km</div>
-                                    <div class="text-xs" style="color: var(--color-text-secondary);">7:03/mi</div>
-                                </div>
-                            </div>
-
-                            <!-- Half Marathon - Highlighted -->
-                            <div class="flex items-center justify-between p-4 rounded-lg" style="background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); color: white;">
-                                <div>
-                                    <div class="font-bold text-lg">Half Marathon</div>
-                                    <div class="text-sm opacity-90">Predicted: 1:37:40</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-mono text-2xl font-bold">4:37/km</div>
-                                    <div class="text-sm opacity-90">7:26/mi</div>
-                                </div>
-                            </div>
-
-                            <!-- Marathon -->
-                            <div class="flex items-center justify-between p-3 rounded-lg" style="background: var(--color-bg);">
-                                <div>
-                                    <div class="font-bold">Marathon</div>
-                                    <div class="text-xs" style="color: var(--color-text-secondary);">Predicted: 3:24:59</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-mono text-lg font-semibold text-primary">4:51/km</div>
-                                    <div class="text-xs" style="color: var(--color-text-secondary);">7:49/mi</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Current Goal Callout -->
-                    <div class="p-5 rounded-xl shadow-lg" style="background: linear-gradient(135deg, rgba(255, 186, 82, 0.2), rgba(255, 107, 90, 0.1)); border: 2px solid var(--color-accent);">
-                        <div class="flex items-start gap-3">
-                            <div class="text-3xl">🎯</div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">Current Training Goal</h4>
-                                <div class="font-mono text-2xl font-bold text-primary mb-2">1:40 HM @ 4:44/km</div>
-                                <p class="text-sm" style="color: var(--color-text-secondary);">
-                                    Your goal provides a conservative <strong class="text-primary">2:20 buffer</strong> from your predicted capability (1:37:40).
-                                    This allows for race-day variables while still being an ambitious target.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Key Workout Paces -->
-                    <div class="mt-6 p-4 rounded-xl shadow-lg" style="background: var(--color-surface);">
-                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                            <span class="text-xl">⚡</span> Key Workout Paces
-                        </h3>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="p-3 rounded-lg text-center" style="background: var(--color-bg);">
-                                <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Goal HM Pace</div>
-                                <div class="font-mono text-xl font-bold text-primary">4:44/km</div>
-                            </div>
-                            <div class="p-3 rounded-lg text-center" style="background: var(--color-bg);">
-                                <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Threshold</div>
-                                <div class="font-mono text-xl font-bold" style="color: #FF6B5A;">4:30/km</div>
-                            </div>
-                            <div class="p-3 rounded-lg text-center" style="background: var(--color-bg);">
-                                <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Easy Pace</div>
-                                <div class="font-mono text-xl font-bold" style="color: #4A5BAF;">5:30-5:45</div>
-                            </div>
-                            <div class="p-3 rounded-lg text-center" style="background: var(--color-bg);">
-                                <div class="text-xs uppercase tracking-wide mb-1" style="color: var(--color-text-secondary);">Long Run Start</div>
-                                <div class="font-mono text-xl font-bold" style="color: #06A77D;">5:15-5:20</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Service workers are not supported in sandboxed iframes
-        // Data persistence is handled via IndexedDB instead
-
-        // Start the app
-        init();
+        renderPaceView();
+
+        // Init
+        renderAllWeeks();
+        renderWeekTabs(1, 6);
     </script>
+
+
+
 </body>
+
 </html>
