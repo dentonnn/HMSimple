@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/* CSS Custom Properties - Runna-Inspired Theme */
+:root {
+  /* Background colors */
+  --color-bg: #F5F7F8;
+  --color-surface: #FFFFFF;
+
+  /* Text colors */
+  --color-text: #1A1A1A;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+
+  /* Border & dividers */
+  --color-border: #E5E7EB;
+  --color-divider: #F0F0F0;
+
+  /* Accent colors */
+  --color-accent: #FF6B35;
+  --color-success: #06A77D;
+
+  /* Workout type colors (left border) */
+  --run-easy: #4ECDC4;
+  --run-tempo: #FFD93D;
+  --run-intervals: #FF6B6B;
+  --run-long: #6BCB77;
+  --run-recovery: #95E1D3;
+  --run-race: #9B59B6;
+
+  /* Fonts */
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.dark {
+  --color-bg: #121212;
+  --color-surface: #1E1E1E;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #707070;
+  --color-border: #2C2C2C;
+  --color-divider: #2C2C2C;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--color-bg);
+  color: var(--color-text);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Session Cards - Runna Style */
+.session-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--workout-color, var(--color-border));
+}
+
+.session-card.completed {
+  opacity: 0.85;
+}
+
+.session-card:active {
+  transform: scale(0.99);
+}
+
+/* Session Type Left Border Colors */
+.session-card[data-type="intervals"]::before {
+  background: var(--run-intervals);
+}
+
+.session-card[data-type="tempo"]::before {
+  background: var(--run-tempo);
+}
+
+.session-card[data-type="easy"]::before {
+  background: var(--run-easy);
+}
+
+.session-card[data-type="recovery"]::before {
+  background: var(--run-recovery);
+}
+
+.session-card[data-type="long-run"]::before {
+  background: var(--run-long);
+}
+
+.session-card[data-type="race"]::before {
+  background: var(--run-race);
+}
+
+/* Expandable Content */
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.expandable-content.expanded {
+  max-height: 2000px;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* Utility Classes */
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-success {
+  background-color: var(--color-success);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
