@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 interface LogSessionModalProps {
     isOpen: boolean
     onClose: () => void
+    onSaveSuccess?: (sessionId: string) => void
     session: {
         id: string
         session_type: string
@@ -16,7 +18,8 @@ interface LogSessionModalProps {
     }
 }
 
-export function LogSessionModal({ isOpen, onClose, session }: LogSessionModalProps) {
+export function LogSessionModal({ isOpen, onClose, onSaveSuccess, session }: LogSessionModalProps) {
+    const supabase = createClient()
     const [formData, setFormData] = useState({
         distance: '',
         duration: '',
@@ -34,19 +37,26 @@ export function LogSessionModal({ isOpen, onClose, session }: LogSessionModalPro
     const handleSubmit = async () => {
         setIsSubmitting(true)
         try {
+            const distanceKm = parseFloat(formData.distance)
+            const durationMin = parseFloat(formData.duration)
+            const distance_meters = !isNaN(distanceKm) && distanceKm > 0 ? Math.round(distanceKm * 1000) : null
+            const duration_seconds = !isNaN(durationMin) && durationMin > 0 ? Math.round(durationMin * 60) : null
+            const avg_pace = distance_meters && duration_seconds
+                ? Math.round((duration_seconds / distance_meters) * 1000)
+                : null
+            const avg_heart_rate = formData.avgHr ? parseInt(formData.avgHr) : null
+
             // 1. Get AI Feedback
             const response = await fetch('/api/ai/feedback', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     sessionType: session.session_type,
                     prescribedWorkout: session.prescribed_workout,
                     actualData: {
-                        distance_meters: parseFloat(formData.distance) * 1000,
-                        duration_seconds: parseFloat(formData.duration) * 60,
-                        avg_heart_rate: parseInt(formData.avgHr),
+                        distance_meters,
+                        duration_seconds,
+                        avg_heart_rate,
                         feel_rating: formData.feelRating,
                         notes: formData.notes
                     }
@@ -56,7 +66,33 @@ export function LogSessionModal({ isOpen, onClose, session }: LogSessionModalPro
             const data = await response.json()
             setAiFeedback(data.feedback)
 
-            // We would save to database here...
+            // 2. Save workout log
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) throw new Error('Not authenticated')
+
+            const { error: logError } = await supabase
+                .from('workout_logs')
+                .insert({
+                    user_id: user.id,
+                    session_id: session.id,
+                    distance_meters,
+                    duration_seconds,
+                    avg_pace_seconds_per_km: avg_pace,
+                    avg_heart_rate,
+                    feel_rating: formData.feelRating,
+                    notes: formData.notes || null,
+                    ai_feedback: data.feedback,
+                })
+            if (logError) throw logError
+
+            // 3. Mark session completed (non-fatal if this fails)
+            const { error: sessionError } = await supabase
+                .from('sessions')
+                .update({ status: 'completed' })
+                .eq('id', session.id)
+            if (sessionError) console.warn('Could not update session status:', sessionError)
+
+            onSaveSuccess?.(session.id)
 
         } catch (error) {
             console.error('Error logging session:', error)

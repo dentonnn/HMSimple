@@ -160,6 +160,24 @@ export default function PlanPage() {
         return () => observer.disconnect();
     }, [loading, totalWeeks, currentWeek]);
 
+    const handleSessionSaved = (sessionId: string) => {
+        setGroupedSessions(prev => {
+            const updated = { ...prev }
+            for (const week in updated) {
+                updated[week] = updated[week].map(s =>
+                    s.id === sessionId ? { ...s, status: 'completed' as const } : s
+                )
+            }
+            return updated
+        })
+        // Only increment if the session wasn't already completed
+        setCompletedSessionsCount(prev => {
+            const alreadyDone = Object.values(groupedSessions).flat().find(s => s.id === sessionId)?.status === 'completed'
+            return alreadyDone ? prev : prev + 1
+        })
+        // Do NOT close the modal here — let onClose (Start Rest & Recovery) handle teardown
+    }
+
     const scrollToWeek = (weekNum: number) => {
         setActiveTabWeek(weekNum);
         if (weekRefs.current[weekNum]) {
@@ -366,6 +384,7 @@ export default function PlanPage() {
                 <LogSessionModal
                     isOpen={true}
                     onClose={() => setSelectedSession(null)}
+                    onSaveSuccess={handleSessionSaved}
                     session={selectedSession}
                 />
             )}

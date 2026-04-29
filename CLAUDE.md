@@ -15,7 +15,7 @@ This is a monorepo containing two projects:
 
 From the `stride-app/` directory:
 
-- **Development**: `npm run dev` - Starts Next.js dev server on `http://localhost:3001`
+- **Development**: `npm run dev` - Starts Next.js dev server (defaults to `http://localhost:3000`; no port is hardcoded in the script)
 - **Build**: `npm run build` - Builds for production
 - **Start**: `npm start` - Runs production build locally
 - **Lint**: `npm run lint src/` - Runs ESLint on `src/` directory (TypeScript/TSX files)
@@ -39,21 +39,25 @@ stride-app/
 │   │   ├── onboarding/page.tsx       # User onboarding flow
 │   │   ├── plan/page.tsx             # Training plan view and interactions
 │   │   ├── settings/page.tsx         # User settings
+│   │   ├── dashboard/page.tsx        # Post-onboarding dashboard
 │   │   ├── globals.css               # Global styles with custom CSS variables
 │   │   └── api/                      # API routes
 │   │       ├── ai/feedback/          # Gemini AI coach feedback endpoint
 │   │       ├── strava/auth/          # Strava OAuth initiation
 │   │       ├── strava/callback/      # Strava OAuth callback handler
+│   │       ├── strava/sync/          # Strava workout sync endpoint
 │   │       └── test/templates/       # Testing endpoint for plan templates
 │   ├── components/                   # Reusable React components
+│   │   ├── AICoachChat.tsx           # AI coach chat interface
 │   │   ├── SessionCard.tsx           # Individual training session card
 │   │   └── LogSessionModal.tsx       # Modal for logging completed workouts
 │   ├── lib/                          # Utility functions and services
 │   │   ├── supabase/
-│   │   │   ├── client.ts             # Browser-side Supabase client (createClient)
-│   │   │   └── server.ts             # Server-side Supabase client (createClient)
+│   │   │   ├── client.ts             # Browser-side Supabase client (@supabase/ssr)
+│   │   │   └── server.ts             # Server-side Supabase client (@supabase/ssr)
 │   │   ├── gemini.ts                 # Google Gemini AI integration
 │   │   ├── strava.ts                 # Strava OAuth and API utilities
+│   │   ├── sync.ts                   # Strava workout sync logic
 │   │   └── plan-templates.ts         # Pre-built training plan templates
 │   └── types/
 │       ├── database.ts               # Supabase table types (auto-generated)
@@ -79,6 +83,7 @@ stride-app/
 ### Key Architecture Patterns
 
 1. **Supabase Integration**:
+   - Uses `@supabase/ssr` (not `@supabase/supabase-js` directly) so cookies propagate the auth session between browser and Next.js server components
    - Two client types: `lib/supabase/client.ts` for browser and `lib/supabase/server.ts` for server routes
    - Database tables: `profiles`, `plan_templates`, `training_plans`, `sessions`, `workout_logs`
    - Row Level Security enabled for data isolation
@@ -90,6 +95,7 @@ stride-app/
 
 3. **Strava Integration**:
    - OAuth flow: `/api/strava/auth` → redirect to Strava → `/api/strava/callback`
+   - `/api/strava/sync` + `lib/sync.ts` handle post-auth workout sync
    - Handles token storage and workout auto-sync (currently in development)
 
 4. **Training Plans**:

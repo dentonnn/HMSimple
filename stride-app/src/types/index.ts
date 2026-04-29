@@ -13,7 +13,7 @@ export interface PrescribedWorkout {
     notes?: string
 }
 
-export interface SessionWithWorkout extends Session {
+export interface SessionWithWorkout extends Omit<Session, 'prescribed_workout'> {
     prescribed_workout: PrescribedWorkout
 }
 
